@@ -1,5 +1,6 @@
 import selfdesignpattern.abstractfactory.Client;
 import selfdesignpattern.abstractfactory.DefaultValue;
+import selfdesignpattern.builder.Director;
 import selfdesignpattern.observer.ObserverClient;
 import selfdesignpattern.observer.SubServer;
 import selfdesignpattern.simplefactory.SimpleFactoryA;
@@ -30,6 +31,9 @@ public class Main {
         subServer.serverNotifyObserver();//通知所有观察者，进行更新
 
         observerClient.StopObserverClient();//注销观察者
+
+        Director.conCreate();
+
     }
 
     private static void factoryMode() {
