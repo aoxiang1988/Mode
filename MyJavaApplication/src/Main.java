@@ -11,6 +11,41 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+    
+    private static WorkLooper mWorkLooper = null;
+
+    private static final String MSG_A = "msg-a";
+    private static final String MSG_B = "msg-b";
+    private static final String MSG_C = "msg-c";
+
+    private static void myHandlerTest() {//模拟handler消息执行
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(MessageQueue.Message msg) {
+                Date currentTime;
+                switch (msg.msgString) {
+                    case MSG_A:
+                        currentTime = new Date();
+                        System.out.println(MSG_A + "--" + currentTime.getTime());
+                        break;
+                    case MSG_B:
+                        currentTime = new Date();
+                        System.out.println(MSG_B + "--" + currentTime.getTime());
+                        break;
+                    case MSG_C:
+                        currentTime = new Date();
+                        System.out.println(MSG_C + "--" + currentTime.getTime());
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        handler.sendMessage("msg-a");
+        handler.sendMessage("msg-b", 20);
+        handler.sendMessage("msg-c", 1050);
+    }
 
     public static void main(String[] args) {
         System.out.print("my app\n");
@@ -33,6 +68,12 @@ public class Main {
         observerClient.StopObserverClient();//注销观察者
 
         Director.conCreate();
+        
+        mWorkLooper = WorkLooper.getInstance();//主线程提前启动loop线程
+        //WorkUtils.linkStack();
+        //WorkUtils.linkDLStack();
+        //WorkUtils.fifoQueue();
+        myHandlerTest();
 
     }
 
