@@ -1,4 +1,4 @@
-package lte.td.tech.handler;
+package handler;
 
 public abstract class Handler implements IHandler {
 
