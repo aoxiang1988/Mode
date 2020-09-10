@@ -75,6 +75,20 @@ public class Main {
         //WorkUtils.fifoQueue();
         myHandlerTest();
 
+        /*广播接收器*/
+        IntentFilter iFilter= new IntentFilter();
+        iFilter.addAction("add");
+        iFilter.addAction("abc");
+
+        BroadCastReceiver receiver = new BroadCastReceiver() {
+            @Override
+            public void onReceiver(Intent i) {
+                System.out.println("I got the broad cast ： "+i.getAction());
+            }
+        };
+        registerReceiver(receiver, iFilter);
+        sendBroadCastReceiver(new Intent("abc"));
+        sendBroadCastReceiver(new Intent("add"));
     }
 
     private static void factoryMode() {
