@@ -1,28 +1,35 @@
-package broadcast.intent;
+package lte.td.tech.broadcast.intent;
 
-import java.util.ArrayList;
+import lte.td.tech.QueueUtils;
 
 public class IntentFilter {
 
-    private static ArrayList<Intent> mFilter ;
+    private QueueUtils mQueueUtils;
+    private QueueUtils.Queue mCurrentQueue;
 
     public IntentFilter() {
-        mFilter = new ArrayList<>();
+        mQueueUtils = QueueUtils.getInstance();
+        mCurrentQueue = mQueueUtils.initLinkQueue(new Intent());
     }
 
     public void addAction(String action) {
         Intent intent = new Intent();
         intent.setAction(action);
-        mFilter.add(intent);
+        mQueueUtils.pushToQueue(mCurrentQueue, intent);
     }
 
     public Intent getCurrentIntent(String action) {
-        for (Intent i : mFilter) {
-            if (i.getAction().equalsIgnoreCase(action)) {
-                return i;
+        QueueUtils.QueueNode result = mCurrentQueue.getLinkQueue();
+        while (result != null) {
+            if (((Intent) result.value).getAction() != null &&
+                    ((Intent) result.value).getAction().equalsIgnoreCase(action)) {
+                return (Intent) result.value;
+            } else if (mQueueUtils.nextNodeState(result)) {
+                result = mQueueUtils.getNextNode(result);
+            } else {
+                result = null;
             }
         }
         return null;
     }
-
 }
