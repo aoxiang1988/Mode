@@ -20,4 +20,23 @@ public class Receiver {
         String mCurrentAction = intent.getAction();
         mCurrentReceiver.onReceiver(mCurrentFilter.getCurrentIntent(mCurrentAction));
     }
+
+    public static void sendBroadCastReceiver(PendingIntent intent) {
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean hasSendIntent = false;
+                while (!hasSendIntent) {
+                    if (intent.isNeedSendIntent()) {
+                        mCurrentReceiver.onReceiver(intent);
+                        hasSendIntent = true;
+                    } else {
+                        System.out.println("need wait!!!");
+                    }
+                }
+            }
+        });
+        thread.start();
+    }
 }
