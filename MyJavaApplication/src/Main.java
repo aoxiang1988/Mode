@@ -89,6 +89,7 @@ public class Main {
         registerReceiver(receiver, iFilter);
         sendBroadCastReceiver(new Intent("abc"));
         sendBroadCastReceiver(new Intent("add"));
+        sendBroadCastReceiver(new PendingIntent("bbb", 5000));
     }
 
     private static void factoryMode() {
