@@ -87,4 +87,11 @@ public class QueueUtils {
         return result;
     }
 
+    public boolean nextNodeState(QueueNode result) {
+        return result.next != null;
+    }
+
+    public QueueNode getNextNode(QueueNode result) {
+        return result.next;
+    }
 }
