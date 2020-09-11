@@ -1,8 +1,9 @@
-class LinkStackUtils {
 
+public class LinkStackUtils {
+    private static String TAG = "LinkStackUtils";
     private static LinkStackUtils mLinkStackUtils = null;
 
-    static LinkStackUtils getInstance() {
+    public static LinkStackUtils getInstance() {
         if (mLinkStackUtils == null) {
             mLinkStackUtils = new LinkStackUtils();
         }
@@ -10,7 +11,7 @@ class LinkStackUtils {
     }
 
     //单向链表堆栈节点
-    static class StackNode {
+    public static class StackNode {
 
         StackNode () {
             this.next = null;
@@ -21,22 +22,38 @@ class LinkStackUtils {
         Object value;
     }
 
-    private static StackNode mTop;
-    private static StackNode mTaskStack;
 
-    void initStack() {
-        mTaskStack = new StackNode();
-        mTop = mTaskStack;
+
+    static class StackCreater {
+        private StackNode top;
+        private StackNode taskStack;
+
+        private StackNode_D top_D;
+        private StackNode_D taskStack_D;
+
+        public void setTop(StackNode top) {
+            this.top = top;
+        }
+
+        public void setTop_D(StackNode_D top_D) {
+            this.top_D = top_D;
+        }
     }
 
-    void push(Object v) {
-        mTop.next = new StackNode();
-        mTop.next.value = v;
-        mTop = mTop.next;
+
+    public void initStack(StackCreater creater) {
+        creater.taskStack = new StackNode();
+        creater.top = creater.taskStack;
     }
 
-    private StackNode getLastSecondNode() {
-        StackNode temp = mTaskStack;
+    public void push(StackCreater creater, Object v) {
+        creater.top.next = new StackNode();
+        creater.top.next.value = v;
+        creater.setTop(creater.top.next);
+    }
+
+    private StackNode getLastSecondNode(StackCreater creater) {
+        StackNode temp = creater.taskStack;
         while (temp.next.next != null) {
             temp = temp.next;
         }
@@ -44,27 +61,27 @@ class LinkStackUtils {
         return temp;
     }
 
-    boolean isEmpty() {
-        if (mTaskStack.next == null) {
-            System.out.println("the stack is null");
+    public boolean isEmpty(StackCreater creater) {
+        if (creater.taskStack.next == null) {
+            Log.d(TAG,"the stack is null");
             return true;
         }
         return false;
     }
 
-    StackNode pop() {
-        if(isEmpty()) {
+    StackNode pop(StackCreater creater) {
+        if(isEmpty(creater)) {
             return null;
         }
         StackNode s = new StackNode();
         s.next = null;
-        s.value = mTop.value;
-        mTop = getLastSecondNode();
+        s.value = creater.top.value;
+        creater.setTop(getLastSecondNode(creater));
         return s;
     }
 
     //双向链表堆栈节点
-    static class StackNode_D {
+    public static class StackNode_D {
         StackNode_D () {
             this.next = null;
             this.front = null;
@@ -72,61 +89,64 @@ class LinkStackUtils {
         }
         StackNode_D next;
         StackNode_D front;
-        Object value;
+        public Object value;
     }
 
-    private static StackNode_D mTop_D;
-    private static StackNode_D mTaskStack_D;
 
-    void initDLStack() {
-        mTaskStack_D = new StackNode_D();
-        mTop_D = mTaskStack_D;
+
+    public void initDLStack(StackCreater creater) {
+        creater.taskStack_D = new StackNode_D();
+        creater.top_D = creater.taskStack_D;
     }
 
-    void pushDLStack(Object v) {
-        mTop_D.next = new StackNode_D();
-        mTop_D.next.value = v;
-        mTop_D.next.front = mTop_D;
-        mTop_D = mTop_D.next;
+    public void pushDLStack(StackCreater creater, Object v) {
+        creater.top_D.next = new StackNode_D();
+        creater.top_D.next.value = v;
+        creater.top_D.next.front = creater.top_D;
+        creater.setTop_D(creater.top_D.next);
     }
 
-    private StackNode_D getLastSecondNodeOfDLStack() {
-        StackNode_D temp = mTop_D.front;
+    private StackNode_D getLastSecondNodeOfDLStack(StackCreater creater) {
+        StackNode_D temp = creater.top_D.front;
         temp.next = null;
         return temp;
     }
 
-    boolean isEmptyOfDLStack() {
-        if (mTaskStack_D.next == null) {
-            System.out.println("the DL stack is null");
+    public StackNode_D getDLStack(StackCreater creater) {
+        return creater.taskStack_D;
+    }
+
+    public boolean isEmptyOfDLStack(StackCreater creater) {
+        if (creater.taskStack_D.next == null) {
+            Log.d(TAG,"the DL stack is null");
             return true;
         }
         return false;
     }
 
-    StackNode_D popDLStack() {
-        if(isEmptyOfDLStack()) {
+    StackNode_D popDLStack(StackCreater creater) {
+        if(isEmptyOfDLStack(creater)) {
             return null;
         }
         StackNode_D s = new StackNode_D();
-        s.value = mTop_D.value;
-        mTop_D = getLastSecondNodeOfDLStack();
+        s.value = creater.top_D.value;
+        creater.top_D = getLastSecondNodeOfDLStack(creater);
         return s;
     }
 
 
     /*销毁*/
-    void destroyStack() {
-        if (mTaskStack != null) {
-            mTaskStack = null;
-            mTop = null;
+    public void destroyStack(StackCreater creater) {
+        if (creater.taskStack != null) {
+            creater.taskStack = null;
+            creater.top = null;
         }
     }
 
-    void destroyDLStack() {
-        if (mTaskStack_D != null) {
-            mTaskStack_D = null;
-            mTop_D = null;
+    public void destroyDLStack(StackCreater creater) {
+        if (creater.taskStack_D != null) {
+            creater.taskStack_D = null;
+            creater.top_D = null;
         }
     }
 }
