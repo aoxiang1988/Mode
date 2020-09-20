@@ -64,14 +64,6 @@ public class Main {
     private static String TAG = "Main";
     public static void main(String[] args) {
         Log.i(TAG, "my app\n");
-        JFrame frame = new JFrame();
-        frame.setBounds(500, 500, 500, 500);
-        JPanel panel = new JPanel(new FlowLayout());
-        JButton button = new JButton("select");
-        panel.add(button);
-        frame.setContentPane(panel);
-        frame.setVisible(true);
-
         factoryMode();
 
         /*观察者模式*/
