@@ -14,7 +14,7 @@ public class ObserverManager implements SubjectInterface{
         }
 
         if(mObserverList == null)
-            mObserverList = new ArrayList<>();
+            mObserverList = new ArrayList<ObserverInterface>();
 
         return mObserverManager;
     }

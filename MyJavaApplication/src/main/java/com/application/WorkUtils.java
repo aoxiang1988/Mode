@@ -56,7 +56,7 @@ class WorkUtils {
     
     static void getBaiduResult() {
         Log.i(TAG, "getBaiduResult");
-        OnLineWorkerThread<String> thread = new OnLineWorkerThread<>();
+        OnLineWorkerThread<String> thread = new OnLineWorkerThread<String>();
         thread.SendNewRunnable(OnLineWorkerThread.OPERATION_HTTP_CONNECTION,
                 new RequestCallBack<String>() {
 
@@ -94,7 +94,7 @@ class WorkUtils {
         public OnLineWorkerThread(){
 
 
-            BlockingQueue<Runnable> mBlockingQueue = new LinkedBlockingQueue<>();//when the queue empty , it cann't get any runnable, after add new runnable, the queue will be wake up and can be got runnable to to work
+            BlockingQueue<Runnable> mBlockingQueue = new LinkedBlockingQueue<Runnable>();//when the queue empty , it cann't get any runnable, after add new runnable, the queue will be wake up and can be got runnable to to work
 
             ThreadFactory mFactory = new ThreadFactory() {
 

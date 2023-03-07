@@ -24,7 +24,7 @@ public class Receiver {
         mCurrentReceiver.onReceiver(mCurrentFilter.getCurrentIntent(mCurrentAction));
     }
 
-    public static void sendBroadCastReceiver(PendingIntent intent) {
+    public static void sendBroadCastReceiver(final PendingIntent intent) {
 
         Thread thread = new Thread(new Runnable() {
             @Override
