@@ -13,9 +13,14 @@ public class Main {
      * A native method that is implemented by the 'nativelib' native library,
      * which is packaged with this application.
      */
-    static Map<String, TagInfo> mMainMap;
+    private static Map<String, TagInfo> mMainMap;
 
-    static TagInfoListUtil mUtil;
+    private static TagInfoListUtil mUtil;
+
+    private static String mPatchesParentPath;
+    private static String mPatchOfModelPath;
+    private static String mModelInitResult;
+    private static String mPatchesResult;
 
     public static void main(String[] args) {
 
@@ -35,6 +40,13 @@ public class Main {
                 }
             }
         }
+
+        System.out.print("please input patches file download path :> ");
+        String patchFilePath = mInputUtils.putFilePath();
+        mPatchesParentPath = patchFilePath + "/patches/";
+        mPatchOfModelPath = patchFilePath + "/preCS1_preCS2_patches/";
+        mModelInitResult = patchFilePath + "/initial_result/";
+        mPatchesResult = patchFilePath + "/patches_result/";
 
         //System.out.print("please input path of cmd file where you want to store (like G:\\):> ");
         //String patchCmdFile = mInputUtils.putFilePath();
@@ -62,21 +74,23 @@ public class Main {
             OutputStreamWriter patchCmdOsw = new OutputStreamWriter(patchCmdFos, "UTF-8");
             BufferedWriter patchCmdBw=new BufferedWriter(patchCmdOsw);
 
-            String[] resultFileCmd = {
-                    "mkdir -p /home/soft2/24MM/LINUX/temp/patches_result",
-                    "cd /home/soft2/24MM/LINUX/temp/patches_result",
-            };
+            /*String[] resultFileCmd = {
+                    "mkdir -p " + patches_result,  //  patch下载完成后结果保存位置   /home/soft2/24MM/LINUX/temp/patches_result",
+                    "cd " + patches_result,    // patch下载完成后结果保存位置    /home/soft2/24MM/LINUX/temp/patches_result",
+            };*/
 
             patchCmdBw.write("#!/bin/bash" + "\t\n");
             patchCmdBw.write("\t\n");
 
             patchCmdBw.write("echo \"cmd start\"" + "\t\n");
-            patchCmdBw.write("PATCHESDIRECTORY=/home/soft2/24MM/LINUX/temp/patches/" + mUtil.getPatchFileName() + "\t\n");
+
+            patchCmdBw.write("PATCHESDIRECTORY=" + mPatchesParentPath /*具体patch最终保存的路径 /home/soft2/24MM/LINUX/temp/patches/"*/ + mUtil.getPatchFileName() + "\t\n");
             patchCmdBw.write("mkdir -p $PATCHESDIRECTORY" + "\t\n");
             patchCmdBw.write("\t\n");
             for(String path:mMainMap.keySet()) {
                 TagInfo readInfo = mMainMap.get(path);
-                String homePath = "/home/soft2/24MM/LINUX/temp/preCS1_preCS2_patches/";
+
+                String homePath = mPatchOfModelPath;  //存在patch的模块git下载处 "/home/soft2/24MM/LINUX/temp/preCS1_preCS2_patches/";
 
                 String patchCmd = null;
 
@@ -112,8 +126,9 @@ public class Main {
                             + " --stdout > " + readInfo.getPatchFileName();
                 }
 
-                String initFile = "/home/soft2/24MM/LINUX/temp/initial_result/" + readInfo.getResultFileName();
-                String resultFile = "/home/soft2/24MM/LINUX/temp/patches_result/" + readInfo.getResultFileName();
+
+                String initFile = mModelInitResult/*"/home/soft2/24MM/LINUX/temp/initial_result/"*/ + readInfo.getResultFileName();
+                String resultFile = mPatchesResult /*"/home/soft2/24MM/LINUX/temp/patches_result/"*/ + readInfo.getResultFileName();
                 String[] patchCmdArrs={
                         "#init Start!",
                         "echo \"" + readInfo.getModelName() + " start!\"",
@@ -128,7 +143,7 @@ public class Main {
                         "    git remote add origin " + readInfo.getRemoteFetch() + "/" + readInfo.getProjectPath() + ".git",
                         "    git fetch",
                         "    if [ $? = '0' ]; then",
-                        "        mkdir -p /home/soft2/24MM/LINUX/temp/initial_result",
+                        "        mkdir -p " + mModelInitResult, ///home/soft2/24MM/LINUX/temp/initial_result",
                         "        echo \"finished!\" > $INITFILE",
                         "    else echo \"init has failed!\"",
                         "    fi",
@@ -140,7 +155,7 @@ public class Main {
                         "if [ ! -f \"$FILE\" ]; then",
                         "    " + patchCmd,
                         "    if [ $? = '0' ]; then",
-                        "        mkdir -p /home/soft2/24MM/LINUX/temp/patches_result",
+                        "        mkdir -p " + mPatchesResult, ///home/soft2/24MM/LINUX/temp/patches_result",
                         "        echo \"finished!\" > $FILE",
                         "    else echo \"down has failed!\"",
                         "    fi",
