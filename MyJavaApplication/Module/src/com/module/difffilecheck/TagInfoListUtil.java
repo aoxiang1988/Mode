@@ -1,29 +1,48 @@
 package com.module.difffilecheck;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TagInfoListUtil {
-    File mDiffFile = new File("G:\\manifest.diff");
+
     Map<String, TagInfo> mDiffList = new HashMap<>();
     FileInputStream mDiffFileInputStream;
     String mRemoteFetch;
+    String mPatchFileName;
+
+    public String getPatchFileName() {
+        return mPatchFileName;
+    }
 
     public Map<String, TagInfo> getDiffList() {
         return mDiffList;
     }
 
-    public void ReadFile() throws IOException {
+    public void ReadFile(String diffFilePath) throws IOException {
+        File mDiffFile = new File(diffFilePath);
         mDiffFileInputStream = new FileInputStream(mDiffFile);
         BufferedReader br = new BufferedReader(new InputStreamReader(mDiffFileInputStream));
+        String firstLine = br.readLine();
+        String[] firstLines = firstLine.split(" ");
+
+        String firstName = null;
+        String lastName = null;
+        for (String key:firstLines) {
+            if (key.contains("a/")) {
+                firstName = key.split("/")[1].split("-")[0]+"-"+key.split("/")[1].split("-")[1];
+            }
+            if (key.contains("b/")) {
+                lastName = key.split("/")[1].split("-")[0]+"-"+key.split("/")[1].split("-")[1];
+            }
+        }
+        mPatchFileName = firstName + "_" + lastName;
+        //System.out.println(mPatchFileName);
+
         String line = null;
         while ((line = br.readLine()) != null) {
-            System.out.println(line);
             if (line.contains("remote fetch")) {
                 String[] lineInfo = new String[line.split("").length];
                 for (int k = 0; k < line.split(" ").length; k++) {
@@ -90,7 +109,6 @@ public class TagInfoListUtil {
                     }
                 }
             }
-            System.out.println("finish!");
         }
         br.close();
     }

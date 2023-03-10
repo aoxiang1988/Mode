@@ -49,4 +49,10 @@ public class TagInfo {
         modelName = mProjectPath.replace("/", "_");
         return modelName;
     }
+
+    public String getPatchFileName () {
+        String resultName = null;
+        resultName = mProjectPath.replace("/", "_") + "_patches_file.patch";
+        return resultName;
+    }
 }
