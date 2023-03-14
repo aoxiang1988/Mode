@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="org.gitlab4j:gitlab4j-api:4.19.0" type="repository">
+  <library name="jgit" type="repository">
     <properties maven-id="org.gitlab4j:gitlab4j-api:4.19.0" />
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/gitlab4j/gitlab4j-api/4.19.0/gitlab4j-api-4.19.0.jar!/" />

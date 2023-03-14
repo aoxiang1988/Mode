@@ -7,6 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="org.gitlab4j:gitlab4j-api:4.19.0" level="project" />
+    <orderEntry type="library" name="jgit" level="project" />
+    <orderEntry type="library" name="org.eclipse.jgit:org.eclipse.jgit:6.5.0.202303070854-r" level="project" />
   </component>
 </module>
