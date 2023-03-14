@@ -2,16 +2,9 @@ package com.module;
 
 import com.module.difffilecheck.TagInfo;
 import com.module.difffilecheck.TagInfoListUtil;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.lib.Repository;
-import org.gitlab4j.api.GitLabApi;
-import org.gitlab4j.api.GitLabApiClient;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     /**
@@ -19,6 +12,8 @@ public class Main {
      * which is packaged with this application.
      */
     private static Map<String, TagInfo> mMainMap;
+    private static Map<String, String> mManiFestNameMap;
+    private static Map<String, String> mDiffCmdNameMap;
 
     private static TagInfoListUtil mUtil;
 
@@ -30,18 +25,22 @@ public class Main {
     public static void main(String[] args) {
 
         mUtil = new TagInfoListUtil();
-        //buildDiffFile();
-        diffInitFun ();
+
+        InputInfoUtils mInputUtils = new InputInfoUtils();
+        System.out.print("请输入要对比的ManiFest文本及最终sh文件的路径（例如G:/） :> ");
+        String diffFilePath = mInputUtils.putFilePath();
+
+        buildDiffFile(diffFilePath);
+        diffInitFun (diffFilePath, mInputUtils);
     }
 
     /**
      *生成diff文件
      * */
-    private static void buildDiffFile() {
+    private static void buildDiffFile(String diffFilePath) {
+        mManiFestNameMap = new HashMap<>();
+        mDiffCmdNameMap = new HashMap<>();
 
-        InputInfoUtils mInputUtils = new InputInfoUtils();
-        System.out.print("please input manifest file path :> ");
-        String diffFilePath = mInputUtils.putFilePath();
         File file = new File(diffFilePath);
         List<String> diffFileList = new ArrayList<>();
         if(file.isDirectory()) { // 判断File对象对应的目录是否存在
@@ -50,11 +49,15 @@ public class Main {
                 if (name.endsWith(".xml")) {
                     //System.out.println(diffFilePath + "/" + name);
                     diffFileList.add(diffFilePath + "\\" + name);
+                    String diffCmdName = name.split("-")[0] + "-" + name.split("-")[1];
+                    mManiFestNameMap.put(diffFilePath + "\\" + name, diffCmdName);
                 }
             }
 
-            for (int n = 0; n<diffFileList.size(); n++) {
-                String command = "";
+            for (int n = 1; n<diffFileList.size(); n++) {
+                String command = "git diff " + diffFileList.get(n-1) + " " + diffFileList.get(n) + " > " + diffFilePath + "\\" + "temp"+ n + "_patch.diff";
+                String diffCmdName = mManiFestNameMap.get(diffFileList.get(n-1)) + "_" + mManiFestNameMap.get(diffFileList.get(n));
+                mDiffCmdNameMap.put("temp" + n + "_patch.diff", diffCmdName);
                 execute(command);
             }
 
@@ -119,10 +122,10 @@ public class Main {
     /**
      *处理diff生成的文件
      * */
-    private static void diffInitFun() {
-        InputInfoUtils mInputUtils = new InputInfoUtils();
+    private static void diffInitFun(String diffFilePath, InputInfoUtils mInputUtils) {
+        /*InputInfoUtils mInputUtils = new InputInfoUtils();
         System.out.print("please input Diff file path :> ");
-        String diffFilePath = mInputUtils.putFilePath();
+        String diffFilePath = mInputUtils.putFilePath();*/
         File file = new File(diffFilePath);
         List<String> diffFileList = new ArrayList<>();
         if(file.isDirectory()) { // 判断File对象对应的目录是否存在
@@ -135,12 +138,12 @@ public class Main {
             }
         }
 
-        System.out.print("please input patches file download path :> ");
+        System.out.print("请输入patch文件下载路径（如/home/soft2/24MM/LINUX/temp） :> ");
         String patchFilePath = mInputUtils.putFilePath();
-        mPatchesParentPath = patchFilePath + "/patches/";
-        mPatchOfModelPath = patchFilePath + "/preCS1_preCS2_patches/";
-        mModelInitResult = patchFilePath + "/initial_result/";
-        mPatchesResult = patchFilePath + "/patches_result/";
+        mPatchesParentPath = patchFilePath + "/patches";
+        mPatchOfModelPath = patchFilePath + "/preCS1_preCS2_patches";
+        mModelInitResult = patchFilePath + "/initial_result";
+        mPatchesResult = patchFilePath + "/patches_result";
 
         //System.out.print("please input path of cmd file where you want to store (like G:\\):> ");
         //String patchCmdFile = mInputUtils.putFilePath();
@@ -155,6 +158,7 @@ public class Main {
      * 生成patch 下载命令的批处理sh文件
      * */
     private static void buildCmdFile(String diffFilePath, String patchCmdFile) {
+        String diffFileName = diffFilePath.replace(patchCmdFile, "");
         try {
             System.out.println("diff file path: "+diffFilePath);
             mUtil.ReadFile(diffFilePath);
@@ -166,7 +170,7 @@ public class Main {
         //写入中文字符时解决中文乱码问题
         FileOutputStream patchCmdFos= null;
         try {
-            patchCmdFile = patchCmdFile + "\\" + mUtil.getPatchFileName() + "_cmd.sh";
+            patchCmdFile = patchCmdFile + "\\" + mUtil.getPatchFileName(mDiffCmdNameMap, diffFileName) + "_cmd.sh";
             System.out.println("diff cmd file path: "+patchCmdFile);
             patchCmdFos = new FileOutputStream(new File(patchCmdFile));
             OutputStreamWriter patchCmdOsw = new OutputStreamWriter(patchCmdFos, "UTF-8");
@@ -182,7 +186,7 @@ public class Main {
 
             patchCmdBw.write("echo \"cmd start\"" + "\t\n");
 
-            patchCmdBw.write("PATCHESDIRECTORY=" + mPatchesParentPath /*具体patch最终保存的路径 /home/soft2/24MM/LINUX/temp/patches/"*/ + mUtil.getPatchFileName() + "\t\n");
+            patchCmdBw.write("PATCHESDIRECTORY=" + mPatchesParentPath + "/" /*具体patch最终保存的路径 /home/soft2/24MM/LINUX/temp/patches/"*/ + mUtil.getPatchFileName(mDiffCmdNameMap, diffFileName) + "\t\n");
             patchCmdBw.write("mkdir -p $PATCHESDIRECTORY" + "\t\n");
             patchCmdBw.write("\t\n");
             for(String path:mMainMap.keySet()) {
@@ -225,12 +229,12 @@ public class Main {
                 }
 
 
-                String initFile = mModelInitResult/*"/home/soft2/24MM/LINUX/temp/initial_result/"*/ + readInfo.getResultFileName();
-                String resultFile = mPatchesResult /*"/home/soft2/24MM/LINUX/temp/patches_result/"*/ + readInfo.getResultFileName();
+                String initFile = mModelInitResult + "/" /*"/home/soft2/24MM/LINUX/temp/initial_result/"*/ + readInfo.getResultFileName();
+                String resultFile = mPatchesResult  + "/" /*"/home/soft2/24MM/LINUX/temp/patches_result/"*/ + readInfo.getResultFileName();
                 String[] patchCmdArrs={
                         "#init Start!",
                         "echo \"" + readInfo.getModelName() + " start!\"",
-                        "DIRECTORY=" + homePath + readInfo.getProjectPath(),
+                        "DIRECTORY=" + homePath  + "/" + readInfo.getProjectPath(),
                         "if [ ! -d $DIRECTORY ]; then",
                         "    mkdir -p $DIRECTORY",
                         "    cd $DIRECTORY",

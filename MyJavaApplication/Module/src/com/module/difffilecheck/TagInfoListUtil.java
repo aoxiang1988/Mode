@@ -13,7 +13,8 @@ public class TagInfoListUtil {
     String mRemoteFetch;
     String mPatchFileName;
 
-    public String getPatchFileName() {
+    public String getPatchFileName(Map<String, String> mDiffCmdNameMap, String diffFileName) {
+        mPatchFileName = mDiffCmdNameMap.get(diffFileName.replace("\\", ""));
         return mPatchFileName;
     }
 
@@ -25,7 +26,7 @@ public class TagInfoListUtil {
         File mDiffFile = new File(diffFilePath);
         mDiffFileInputStream = new FileInputStream(mDiffFile);
         BufferedReader br = new BufferedReader(new InputStreamReader(mDiffFileInputStream));
-        String firstLine = br.readLine();
+        /*String firstLine = br.readLine();
         String[] firstLines = firstLine.split(" ");
 
         String firstName = null;
@@ -37,8 +38,8 @@ public class TagInfoListUtil {
             if (key.contains("b/")) {
                 lastName = key.split("/")[1].split("-")[0]+"-"+key.split("/")[1].split("-")[1];
             }
-        }
-        mPatchFileName = firstName + "_" + lastName;
+        }*/
+        //mPatchFileName = firstName + "_" + lastName;
         //System.out.println(mPatchFileName);
 
         String line = null;
