@@ -140,8 +140,10 @@ public class Main {
 
         System.out.print("请输入patch文件下载路径（如/home/soft2/24MM/LINUX/temp） :> ");
         String patchFilePath = mInputUtils.putFilePath();
+        System.out.print("请输入差分代码存储文件夹名（如 CS1_CS2） :> ");
+        String codeFilePath = mInputUtils.putFilePath();
         mPatchesParentPath = patchFilePath + "/patches";
-        mPatchOfModelPath = patchFilePath + "/preCS1_preCS2_patches";
+        mPatchOfModelPath = patchFilePath + "/" + codeFilePath + "_patches";
         mModelInitResult = patchFilePath + "/initial_result";
         mPatchesResult = patchFilePath + "/patches_result";
 
@@ -201,9 +203,10 @@ public class Main {
                             + readInfo.getProjectPath()
                             + "\" --dst-prefix=\"b/"
                             + readInfo.getProjectPath()
-                            + "\" -o $PATCHESDIRECTORY "
+                            //+ "\" -o $PATCHESDIRECTORY "
+                            + "\" "
                             + readInfo.getNewRevision()
-                            + " --stdout > " + readInfo.getPatchFileName();
+                            + " --stdout > $PATCHESDIRECTORY/" + readInfo.getPatchFileName();
                 }
 
                 if (readInfo.getNewRevision() == null) {
@@ -211,9 +214,10 @@ public class Main {
                             + readInfo.getProjectPath()
                             + "\" --dst-prefix=\"b/"
                             + readInfo.getProjectPath()
-                            + "\" -o $PATCHESDIRECTORY "
+                            //+ "\" -o $PATCHESDIRECTORY "
+                            + "\" "
                             + readInfo.getOldRevision()
-                            + " --stdout > " + readInfo.getPatchFileName();
+                            + " --stdout > $PATCHESDIRECTORY/" + readInfo.getPatchFileName();
                 }
 
                 if (readInfo.getOldRevision() != null && readInfo.getNewRevision() != null) {
@@ -221,11 +225,12 @@ public class Main {
                             + readInfo.getProjectPath()
                             + "\" --dst-prefix=\"b/"
                             + readInfo.getProjectPath()
-                            + "\" -o $PATCHESDIRECTORY "
+                            //+ "\" -o $PATCHESDIRECTORY "
+                            + "\" "
                             + readInfo.getOldRevision()
                             + " "
                             + readInfo.getNewRevision()
-                            + " --stdout > " + readInfo.getPatchFileName();
+                            + " --stdout > $PATCHESDIRECTORY/" + readInfo.getPatchFileName();
                 }
 
 
@@ -264,7 +269,10 @@ public class Main {
                         "fi",
                         "echo \"down has finished!\"",
                         "echo \"" + readInfo.getModelName() + " Successed!\"",
-                        "echo","echo","echo",
+                        "echo",
+                        "echo",
+                        "echo",
+                        "rm -rf .git",
                         "#patch down Finished!",
                 };
                 for (String arr:patchCmdArrs) {

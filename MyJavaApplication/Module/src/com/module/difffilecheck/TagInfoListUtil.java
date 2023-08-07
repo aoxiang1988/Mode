@@ -10,7 +10,7 @@ public class TagInfoListUtil {
 
     Map<String, TagInfo> mDiffList = new HashMap<>();
     FileInputStream mDiffFileInputStream;
-    String mRemoteFetch;
+    String mRemoteFetch = "https://git.codelinaro.org/clo/la";
     String mPatchFileName;
 
     public String getPatchFileName(Map<String, String> mDiffCmdNameMap, String diffFileName) {
@@ -58,7 +58,7 @@ public class TagInfoListUtil {
                     }
                 }
             }
-            if (line.contains("<project")) {
+            if (line.contains("-  <project ") || line.contains("+  <project ")) {
                 TagInfo info = new TagInfo();
                 info.setRemoteFetch(mRemoteFetch);
                 String[] lineInfo = new String[line.split("").length];

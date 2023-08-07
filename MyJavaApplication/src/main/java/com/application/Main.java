@@ -17,8 +17,7 @@ import com.application.selfdesignpattern.simplefactory.SimpleFactoryA;
 import com.application.selfdesignpattern.simplefactory.SimpleFactoryB;
 import com.application.selfdesignpattern.simplefactory.SimpleFactoryBase;
 
-import javax.swing.*;
-import java.awt.*;
+import java.io.*;
 import java.util.Date;
 
 import static com.application.broadcast.Receiver.registerReceiver;
@@ -63,6 +62,11 @@ public class Main {
     private static String TAG = "Main";
     public static void main(String[] args) {
         Log.i(TAG, "my app\n");
+        try {
+            getUpdateStatus();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         factoryMode();
 
         /*观察者模式*/
@@ -123,5 +127,18 @@ public class Main {
         Client.getClient().doProductFunction(DefaultValue.FACTORY_1, DefaultValue.PRODUCT_A_2);
         Client.getClient().doProductFunction(DefaultValue.FACTORY_2, DefaultValue.PRODUCT_B_1);
         Client.getClient().doProductFunction(DefaultValue.FACTORY_2, DefaultValue.PRODUCT_B_2);
+    }
+
+
+    static void getUpdateStatus() throws IOException {
+        //File updateInfoFile = new File(path);
+        //FileInputStream fileInputStream = new FileInputStream(updateInfoFile);
+        //InputStreamReader isr = new InputStreamReader(fileInputStream, "utf-8");
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("C:\\Users\\yangb\\Desktop\\backup.json"));
+        String updateInfo = "";
+        while((updateInfo = bufferedReader.readLine()) != null) {
+            Log.d(TAG, updateInfo);
+        }
+
     }
 }
