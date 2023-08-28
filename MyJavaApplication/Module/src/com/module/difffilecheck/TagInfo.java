@@ -6,6 +6,19 @@ public class TagInfo {
     String mOldRevision = null;
     String mNewRevision = null;
 
+    String mAndroidProjectPath = null;
+/* /data/24MM/24MM_AOSP/PCS2_PCS3 */
+    public void setAndroidProjectPath(String mAndroidProjectPath) {
+        this.mAndroidProjectPath = mAndroidProjectPath;
+    }
+
+    public String getAndroidProjectPath() {
+        if (mAndroidProjectPath == null) {
+            mAndroidProjectPath = mProjectPath;
+        }
+        return mAndroidProjectPath + "/";
+    }
+
     public void setNewRevision(String mNewRevision) {
         this.mNewRevision = mNewRevision;
     }

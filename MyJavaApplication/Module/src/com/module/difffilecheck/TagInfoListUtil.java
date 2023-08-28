@@ -72,14 +72,14 @@ public class TagInfoListUtil {
                             //System.out.println(mRemoteFetch);
                         }
                     }
-                    /*if (lineInfo[k].contains("path=")) {
+                    if (lineInfo[k].contains("path=")) {
                         Pattern p1=Pattern.compile("\"(.*?)\"");
                         Matcher m = p1.matcher(lineInfo[k]);
                         while (m.find()) {
-                            info.setProjectPath(m.group().trim().replace("\"", ""));
+                            info.setAndroidProjectPath(m.group().trim().replace("\"", ""));
                             //System.out.println(mRemoteFetch);
                         }
-                    }*/
+                    }
                     if (lineInfo[k].contains("revision=") && line.startsWith("-  <") ) {
                         Pattern p1=Pattern.compile("\"(.*?)\"");
                         Matcher m = p1.matcher(lineInfo[k]);

@@ -7,18 +7,11 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    /**
-     * A native method that is implemented by the 'nativelib' native library,
-     * which is packaged with this application.
-     */
-    private static Map<String, TagInfo> mMainMap;
-    private static Map<String, String> mManiFestNameMap;
     private static Map<String, String> mDiffCmdNameMap;
 
     private static TagInfoListUtil mUtil;
 
     private static String mPatchesParentPath;
-    private static String mPatchOfModelPath;
     private static String mModelInitResult;
     private static String mPatchesResult;
 
@@ -38,13 +31,14 @@ public class Main {
      *生成diff文件
      * */
     private static void buildDiffFile(String diffFilePath) {
-        mManiFestNameMap = new HashMap<>();
+        Map<String, String> mManiFestNameMap = new HashMap<>();
         mDiffCmdNameMap = new HashMap<>();
 
         File file = new File(diffFilePath);
         List<String> diffFileList = new ArrayList<>();
         if(file.isDirectory()) { // 判断File对象对应的目录是否存在
             String[] names = file.list(); // 获得目录下的所有文件的文件名
+            assert names != null;
             for (String name : names) {
                 if (name.endsWith(".xml")) {
                     //System.out.println(diffFilePath + "/" + name);
@@ -143,7 +137,7 @@ public class Main {
         System.out.print("请输入差分代码存储文件夹名（如 CS1_CS2） :> ");
         String codeFilePath = mInputUtils.putFilePath();
         mPatchesParentPath = patchFilePath + "/patches";
-        mPatchOfModelPath = patchFilePath + "/" + codeFilePath + "_patches";
+        String mPatchOfModelPath = patchFilePath + "/" + codeFilePath + "_patches";
         mModelInitResult = patchFilePath + "/initial_result";
         mPatchesResult = patchFilePath + "/patches_result";
 
@@ -167,7 +161,11 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mMainMap = mUtil.getDiffList();
+        /**
+         * A native method that is implemented by the 'nativelib' native library,
+         * which is packaged with this application.
+         */
+        Map<String, TagInfo> mMainMap = mUtil.getDiffList();
 
         //写入中文字符时解决中文乱码问题
         FileOutputStream patchCmdFos= null;
@@ -191,18 +189,18 @@ public class Main {
             patchCmdBw.write("PATCHESDIRECTORY=" + mPatchesParentPath + "/" /*具体patch最终保存的路径 /home/soft2/24MM/LINUX/temp/patches/"*/ + mUtil.getPatchFileName(mDiffCmdNameMap, diffFileName) + "\t\n");
             patchCmdBw.write("mkdir -p $PATCHESDIRECTORY" + "\t\n");
             patchCmdBw.write("\t\n");
-            for(String path:mMainMap.keySet()) {
+            for(String path: mMainMap.keySet()) {
                 TagInfo readInfo = mMainMap.get(path);
 
-                String homePath = mPatchOfModelPath;  //存在patch的模块git下载处 "/home/soft2/24MM/LINUX/temp/preCS1_preCS2_patches/";
+                String sourceCodePath = "/data/24MM/AndroidOpenSource";//mPatchOfModelPath;  //存在patch的模块git下载处 "/home/soft2/24MM/LINUX/temp/preCS1_preCS2_patches/";
 
                 String patchCmd = null;
 
                 if (readInfo.getOldRevision() == null) {
                     patchCmd = "git format-patch --src-prefix=\"a/"
-                            + readInfo.getProjectPath()
+                            + readInfo.getAndroidProjectPath()
                             + "\" --dst-prefix=\"b/"
-                            + readInfo.getProjectPath()
+                            + readInfo.getAndroidProjectPath()
                             //+ "\" -o $PATCHESDIRECTORY "
                             + "\" "
                             + readInfo.getNewRevision()
@@ -211,9 +209,9 @@ public class Main {
 
                 if (readInfo.getNewRevision() == null) {
                     patchCmd = "git format-patch --src-prefix=\"a/"
-                            + readInfo.getProjectPath()
+                            + readInfo.getAndroidProjectPath()
                             + "\" --dst-prefix=\"b/"
-                            + readInfo.getProjectPath()
+                            + readInfo.getAndroidProjectPath()
                             //+ "\" -o $PATCHESDIRECTORY "
                             + "\" "
                             + readInfo.getOldRevision()
@@ -222,13 +220,13 @@ public class Main {
 
                 if (readInfo.getOldRevision() != null && readInfo.getNewRevision() != null) {
                     patchCmd = "git format-patch --src-prefix=\"a/"
-                            + readInfo.getProjectPath()
+                            + readInfo.getAndroidProjectPath()
                             + "\" --dst-prefix=\"b/"
-                            + readInfo.getProjectPath()
+                            + readInfo.getAndroidProjectPath()
                             //+ "\" -o $PATCHESDIRECTORY "
                             + "\" "
                             + readInfo.getOldRevision()
-                            + " "
+                            + ".."
                             + readInfo.getNewRevision()
                             + " --stdout > $PATCHESDIRECTORY/" + readInfo.getPatchFileName();
                 }
@@ -239,7 +237,7 @@ public class Main {
                 String[] patchCmdArrs={
                         "#init Start!",
                         "echo \"" + readInfo.getModelName() + " start!\"",
-                        "DIRECTORY=" + homePath  + "/" + readInfo.getProjectPath(),
+                        "DIRECTORY=" + sourceCodePath  + "/" + readInfo.getAndroidProjectPath(),
                         "if [ ! -d $DIRECTORY ]; then",
                         "    mkdir -p $DIRECTORY",
                         "    cd $DIRECTORY",
@@ -272,7 +270,7 @@ public class Main {
                         "echo",
                         "echo",
                         "echo",
-                        "rm -rf .git",
+                        //"rm -rf .git",
                         "#patch down Finished!",
                 };
                 for (String arr:patchCmdArrs) {
