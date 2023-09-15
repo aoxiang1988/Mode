@@ -10,7 +10,7 @@ public class TagInfoListUtil {
 
     Map<String, TagInfo> mDiffList = new HashMap<>();
     FileInputStream mDiffFileInputStream;
-    String mRemoteFetch;
+    String mRemoteFetch = "https://git.codelinaro.org/clo/la";
     String mPatchFileName;
 
     public String getPatchFileName(Map<String, String> mDiffCmdNameMap, String diffFileName) {
@@ -58,7 +58,7 @@ public class TagInfoListUtil {
                     }
                 }
             }
-            if (line.contains("<project")) {
+            if (line.contains("-  <project ") || line.contains("+  <project ")) {
                 TagInfo info = new TagInfo();
                 info.setRemoteFetch(mRemoteFetch);
                 String[] lineInfo = new String[line.split("").length];
@@ -72,14 +72,14 @@ public class TagInfoListUtil {
                             //System.out.println(mRemoteFetch);
                         }
                     }
-                    /*if (lineInfo[k].contains("path=")) {
+                    if (lineInfo[k].contains("path=")) {
                         Pattern p1=Pattern.compile("\"(.*?)\"");
                         Matcher m = p1.matcher(lineInfo[k]);
                         while (m.find()) {
-                            info.setProjectPath(m.group().trim().replace("\"", ""));
+                            info.setAndroidProjectPath(m.group().trim().replace("\"", ""));
                             //System.out.println(mRemoteFetch);
                         }
-                    }*/
+                    }
                     if (lineInfo[k].contains("revision=") && line.startsWith("-  <") ) {
                         Pattern p1=Pattern.compile("\"(.*?)\"");
                         Matcher m = p1.matcher(lineInfo[k]);
