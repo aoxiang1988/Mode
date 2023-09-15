@@ -2,7 +2,7 @@
   <artifact type="jar" name="Module:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Module_jar</output-path>
     <root id="archive" name="Module.jar">
-      <element id="module-output" name="Module" />
+      <element id="module-output" name="GitPatchCmdBuilder" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/gitlab4j/gitlab4j-api/4.19.0/gitlab4j-api-4.19.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/jakarta/activation/jakarta.activation-api/1.2.2/jakarta.activation-api-1.2.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/jaxrs/jackson-jaxrs-json-provider/2.10.3/jackson-jaxrs-json-provider-2.10.3.jar" path-in-jar="/" />

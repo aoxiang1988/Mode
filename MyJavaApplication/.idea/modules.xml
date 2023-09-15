@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Module/Module.iml" filepath="$PROJECT_DIR$/Module/Module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Module/GitPatchCmdBuilder.iml" filepath="$PROJECT_DIR$/Module/GitPatchCmdBuilder.iml" />
     </modules>
   </component>
 </project>
