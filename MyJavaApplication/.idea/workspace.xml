@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="496c75d3-2037-4c81-97ed-c987895a7703" name="Changes" comment="no need">
+      <change beforePath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Module_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jgit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_eclipse_jgit_org_eclipse_jgit_6_5_0_202303070854_r.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/GitPatchCmdBuilder.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GitPatchCmdBuilder/GitPatchCmdBuilder.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/GitPatchCmdBuilder/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/GitPatchCmdBuilder/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/src/com/module/InputInfoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/GitPatchCmdBuilder/src/com/module/InputInfoUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/src/com/module/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/GitPatchCmdBuilder/src/com/module/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/src/com/module/com_module_Main.h" beforeDir="false" afterPath="$PROJECT_DIR$/GitPatchCmdBuilder/src/com/module/com_module_Main.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/src/com/module/difffilecheck/TagInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/GitPatchCmdBuilder/src/com/module/difffilecheck/TagInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/src/com/module/difffilecheck/TagInfoListUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/GitPatchCmdBuilder/src/com/module/difffilecheck/TagInfoListUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/AbstractLayout.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/DimensionInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/GridLayoutManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/HorizontalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/LayoutState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/Spacer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/SupportCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/Util.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/intellij/uiDesigner/core/VerticalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/module/InputInfoUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/module/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/module/difffilecheck/TagInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/com/module/difffilecheck/TagInfoListUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GitPatchCmdBuilder/view/UI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Module/com/module/InputInfoUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Module/com/module/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Module/com/module/difffilecheck/TagInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Module/com/module/difffilecheck/TagInfoListUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/META-INF/MyJavaApplication.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/HTTPConnectionUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/LinkStackUtils$StackCreater.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/LinkStackUtils$StackNode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/LinkStackUtils$StackNode_D.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/LinkStackUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/Log.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/Main$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/Main$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/MainDisplaySystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/QueueUtils$Queue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/QueueUtils$QueueNode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/QueueUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/WorkUtils$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/WorkUtils$OnLineWorkerThread$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/WorkUtils$OnLineWorkerThread$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/WorkUtils$OnLineWorkerThread$OnLineWorkerRunnable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/WorkUtils$OnLineWorkerThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/WorkUtils$RequestCallBack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/WorkUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/broadcast/BroadCastReceiver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/broadcast/Receiver$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/broadcast/Receiver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/broadcast/intent/Intent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/broadcast/intent/IntentFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/broadcast/intent/PendingIntent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/handler/Handler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/handler/IHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/handler/MessageQueue$Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/handler/MessageQueue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/handler/WorkLooper$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/handler/WorkLooper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/AbstractFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/AbstractProductA.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/AbstractProductB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/ConcreateFactory1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/ConcreateFactory2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/DefaultValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/ProductA1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/ProductA2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/ProductB1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/abstractfactory/ProductB2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/builder/Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/builder/ConcreateBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/builder/ConcreateBuilder1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/builder/Director.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/builder/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/builder/Product1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/observer/ObserverClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/observer/ObserverInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/observer/ObserverManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/observer/SubServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/observer/SubjectInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/proxymode/BaseFunctionInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/proxymode/WorkClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/proxymode/WorkClassPoxy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/simplefactory/SimpleFactoryA.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/simplefactory/SimpleFactoryB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/selfdesignpattern/simplefactory/SimpleFactoryBase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/com/application/testcode/TestCodeClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/AbstractFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/AbstractProductA.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/AbstractProductB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/ConcreateFactory1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/ConcreateFactory2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/DefaultValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/ProductA1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/ProductA2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/ProductB1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/abstractfactory/ProductB2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/observer/ObserverClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/observer/ObserverInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/observer/ObserverManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/observer/SubServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/observer/SubjectInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/simplefactory/SimpleFactoryA.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/simplefactory/SimpleFactoryB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MyJavaApplication/selfdesignpattern/simplefactory/SimpleFactoryBase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/HTTPConnectionUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/LinkStackUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/Log.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/MainDisplaySystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/QueueUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/WorkUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/backup.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/broadcast/BroadCastReceiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/broadcast/Receiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/broadcast/intent/Intent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/broadcast/intent/IntentFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/broadcast/intent/PendingIntent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/handler/Handler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/handler/IHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/handler/MessageQueue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/handler/WorkLooper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/AbstractFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/AbstractProductA.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/AbstractProductB.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/ConcreateFactory1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/ConcreateFactory2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/DefaultValue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/ProductA1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/ProductA2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/ProductB1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/abstractfactory/ProductB2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/builder/Builder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/builder/ConcreateBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/builder/ConcreateBuilder1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/builder/Director.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/builder/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/builder/Product1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/observer/ObserverClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/observer/ObserverInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/observer/ObserverManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/observer/SubServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/observer/SubjectInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/proxymode/BaseFunctionInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/proxymode/WorkClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/proxymode/WorkClassPoxy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/simplefactory/SimpleFactoryA.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/simplefactory/SimpleFactoryB.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/selfdesignpattern/simplefactory/SimpleFactoryBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/testcode/TestCodeClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/HTTPConnectionUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/LinkStackUtils$StackCreater.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/LinkStackUtils$StackNode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/LinkStackUtils$StackNode_D.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/LinkStackUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/Log.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/Main$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/Main$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/MainDisplaySystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/QueueUtils$Queue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/QueueUtils$QueueNode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/QueueUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/WorkUtils$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/WorkUtils$OnLineWorkerThread$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/WorkUtils$OnLineWorkerThread$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/WorkUtils$OnLineWorkerThread$OnLineWorkerRunnable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/WorkUtils$OnLineWorkerThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/WorkUtils$RequestCallBack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/WorkUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/broadcast/BroadCastReceiver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/broadcast/Receiver$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/broadcast/Receiver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/broadcast/intent/Intent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/broadcast/intent/IntentFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/broadcast/intent/PendingIntent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/handler/Handler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/handler/IHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/handler/MessageQueue$Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/handler/MessageQueue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/handler/WorkLooper$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/handler/WorkLooper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/AbstractFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/AbstractProductA.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/AbstractProductB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/ConcreateFactory1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/ConcreateFactory2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/DefaultValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/ProductA1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/ProductA2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/ProductB1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/abstractfactory/ProductB2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/builder/Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/builder/ConcreateBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/builder/ConcreateBuilder1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/builder/Director.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/builder/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/builder/Product1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/observer/ObserverClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/observer/ObserverInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/observer/ObserverManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/observer/SubServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/observer/SubjectInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/proxymode/BaseFunctionInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/proxymode/WorkClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/proxymode/WorkClassPoxy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/simplefactory/SimpleFactoryA.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/simplefactory/SimpleFactoryB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/selfdesignpattern/simplefactory/SimpleFactoryBase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/testcode/TestCodeClass.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2Vb9tW0Q4Qt1BRMVdzgKOT1xQTv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "gitdiffmodule",
+    "last_opened_file_path": "D:/github/Mode/MyJavaApplication",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="GitPatchCmdBuilder" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="GitPatchCmdBuilder" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="496c75d3-2037-4c81-97ed-c987895a7703" name="Changes" comment="" />
+      <created>1695094127807</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695094127807</updated>
+    </task>
+    <task id="LOCAL-00001" summary="no need">
+      <option name="closed" value="true" />
+      <created>1695094520719</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695094520719</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/gitdiffmodule" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="no need" />
+    <option name="LAST_COMMIT_MESSAGE" value="no need" />
+  </component>
+</project>
