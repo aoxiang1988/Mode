@@ -15,12 +15,14 @@ public class Main {
     private static String mModelInitResult;
     private static String mPatchesResult;
 
+    static final String MAIN_FILE_PATH_INPUT_MESSAGE = "请输入要对比的ManiFest文本及最终sh文件的路径(例如G:/) :> ";
+
     public static void main(String[] args) {
 
         mUtil = new TagInfoListUtil();
 
         InputInfoUtils mInputUtils = new InputInfoUtils();
-        System.out.print("请输入要对比的ManiFest文本及最终sh文件的路径（例如G:/） :> ");
+        System.out.print(MAIN_FILE_PATH_INPUT_MESSAGE);
         String diffFilePath = mInputUtils.putFilePath();
 
         buildDiffFile(diffFilePath);
