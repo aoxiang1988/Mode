@@ -192,7 +192,7 @@ public class Main {
             for(String path: mMainMap.keySet()) {
                 TagInfo readInfo = mMainMap.get(path);
 
-                String sourceCodePath = "/data/24MM/AndroidOpenSource";//mPatchOfModelPath;  //存在patch的模块git下载处 "/home/soft2/24MM/LINUX/temp/preCS1_preCS2_patches/";
+                String sourceCodePath = mPatchesParentPath + "/AndroidOpenSource";//mPatchOfModelPath;  //存在patch的模块git下载处 "/home/soft2/24MM/LINUX/temp/preCS1_preCS2_patches/";
 
                 String patchCmd = null;
 
@@ -226,7 +226,7 @@ public class Main {
                             //+ "\" -o $PATCHESDIRECTORY "
                             + "\" "
                             + readInfo.getOldRevision()
-                            + ""
+                            + " "
                             + readInfo.getNewRevision()
                             + " --stdout > $PATCHESDIRECTORY/" + readInfo.getPatchFileName();
                 }
