@@ -16,7 +16,7 @@ public class TagInfo {
         if (mAndroidProjectPath == null) {
             mAndroidProjectPath = mProjectPath;
         }
-        return mAndroidProjectPath + "/";
+        return mAndroidProjectPath;
     }
 
     public void setNewRevision(String mNewRevision) {

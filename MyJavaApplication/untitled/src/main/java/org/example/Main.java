@@ -15,7 +15,7 @@ public class Main {
     private static String mModelInitResult;
     private static String mPatchesResult;
 
-    static final String MAIN_FILE_PATH_INPUT_MESSAGE = "è¯·è¾“å…¥è¦å¯¹æ¯”çš„ManiFestæ–‡æœ¬åŠæœ€ç»ˆshæ–‡ä»¶çš„è·¯å¾„(ä¾‹å¦‚G:/) :> ";
+    static final String MAIN_FILE_PATH_INPUT_MESSAGE = "please input the patch of ManiFest and sh which will be built(example G:/) :> ";
 
     public static void main(String[] args) {
 
@@ -30,7 +30,7 @@ public class Main {
     }
 
     /**
-     *ç”Ÿæˆdiffæ–‡ä»¶
+     *Éú³ÉdiffÎÄ¼ş
      * */
     private static void buildDiffFile(String diffFilePath) {
         Map<String, String> mManiFestNameMap = new HashMap<>();
@@ -38,8 +38,8 @@ public class Main {
 
         File file = new File(diffFilePath);
         List<String> diffFileList = new ArrayList<>();
-        if(file.isDirectory()) { // åˆ¤æ–­Fileå¯¹è±¡å¯¹åº”çš„ç›®å½•æ˜¯å¦å­˜åœ¨
-            String[] names = file.list(); // è·å¾—ç›®å½•ä¸‹çš„æ‰€æœ‰æ–‡ä»¶çš„æ–‡ä»¶å
+        if(file.isDirectory()) { // ÅĞ¶ÏFile¶ÔÏó¶ÔÓ¦µÄÄ¿Â¼ÊÇ·ñ´æÔÚ
+            String[] names = file.list(); // »ñµÃÄ¿Â¼ÏÂµÄËùÓĞÎÄ¼şµÄÎÄ¼şÃû
             assert names != null;
             for (String name : names) {
                 if (name.endsWith(".xml")) {
@@ -63,9 +63,9 @@ public class Main {
     }
 
     /**
-     * è°ƒç”¨ProcessBuilderæ‰§è¡Œï¼Œç›¸æ¯”Runtimeæ–¹å¼ï¼Œè¿”å›å€¼ä¸æ˜“ä¸¢å¤±
-     * @param command å‘½ä»¤
-     * @return æ‰§è¡Œç»“æœ
+     * µ÷ÓÃProcessBuilderÖ´ĞĞ£¬Ïà±ÈRuntime·½Ê½£¬·µ»ØÖµ²»Ò×¶ªÊ§
+     * @param command ÃüÁî
+     * @return Ö´ĞĞ½á¹û
      */
     private static String execute(String command) {
         BufferedReader bufferedReader = null;
@@ -73,7 +73,7 @@ public class Main {
         String result = null;
         try {
             File file = new File("C:\\daemonTmp");
-            // æ–°å»ºä¸€ä¸ªå­˜å‚¨ç»“æœçš„ç¼“å­˜æ–‡ä»¶
+            // ĞÂ½¨Ò»¸ö´æ´¢½á¹ûµÄ»º´æÎÄ¼ş
             File tmpFile = new File("C:\\daemonTmp\\temp.tmp");
             if (!file.exists()) {
                 file.mkdirs();
@@ -83,14 +83,14 @@ public class Main {
             }
             ProcessBuilder processBuilder = new ProcessBuilder()
                     .command("cmd.exe", "/c", command).inheritIO();
-            // æŠŠæ§åˆ¶å°ä¸­çš„çº¢å­—å˜æˆäº†é»‘å­—ï¼Œç”¨é€šå¸¸çš„æ–¹æ³•å…¶å®è·å–ä¸åˆ°ï¼Œæ§åˆ¶å°çš„ç»“æœæ˜¯pb.start()æ–¹æ³•å†…éƒ¨è¾“å‡ºçš„ã€‚
+            // °Ñ¿ØÖÆÌ¨ÖĞµÄºì×Ö±ä³ÉÁËºÚ×Ö£¬ÓÃÍ¨³£µÄ·½·¨ÆäÊµ»ñÈ¡²»µ½£¬¿ØÖÆÌ¨µÄ½á¹ûÊÇpb.start()·½·¨ÄÚ²¿Êä³öµÄ¡£
             processBuilder.redirectErrorStream(true);
-            // è¾“å‡ºæ‰§è¡Œç»“æœã€‚
+            // Êä³öÖ´ĞĞ½á¹û¡£
             processBuilder.redirectOutput(tmpFile);
-            // ç­‰å¾…è¯­å¥æ‰§è¡Œå®Œæˆï¼Œå¦åˆ™å¯èƒ½ä¼šè¯»ä¸åˆ°ç»“æœã€‚
+            // µÈ´ıÓï¾äÖ´ĞĞÍê³É£¬·ñÔò¿ÉÄÜ»á¶Á²»µ½½á¹û¡£
             processBuilder.start().waitFor();
             InputStream inputStream = new FileInputStream(tmpFile);
-            //è®¾ç½®ç¼–ç 
+            //ÉèÖÃ±àÂë
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "GBK"));
             String line = null;
             while ((line = bufferedReader.readLine()) != null) {
@@ -116,7 +116,7 @@ public class Main {
     }
 
     /**
-     *å¤„ç†diffç”Ÿæˆçš„æ–‡ä»¶
+     *´¦ÀídiffÉú³ÉµÄÎÄ¼ş
      * */
     private static void diffInitFun(String diffFilePath, InputInfoUtils mInputUtils) {
         /*InputInfoUtils mInputUtils = new InputInfoUtils();
@@ -124,8 +124,8 @@ public class Main {
         String diffFilePath = mInputUtils.putFilePath();*/
         File file = new File(diffFilePath);
         List<String> diffFileList = new ArrayList<>();
-        if(file.isDirectory()) { // åˆ¤æ–­Fileå¯¹è±¡å¯¹åº”çš„ç›®å½•æ˜¯å¦å­˜åœ¨
-            String[] names = file.list(); // è·å¾—ç›®å½•ä¸‹çš„æ‰€æœ‰æ–‡ä»¶çš„æ–‡ä»¶å
+        if(file.isDirectory()) { // ÅĞ¶ÏFile¶ÔÏó¶ÔÓ¦µÄÄ¿Â¼ÊÇ·ñ´æÔÚ
+            String[] names = file.list(); // »ñµÃÄ¿Â¼ÏÂµÄËùÓĞÎÄ¼şµÄÎÄ¼şÃû
             for (String name : names) {
                 if (name.endsWith(".diff")) {
                     //System.out.println(diffFilePath + "/" + name);
@@ -134,9 +134,9 @@ public class Main {
             }
         }
 
-        System.out.print("è¯·è¾“å…¥patchæ–‡ä»¶ä¸‹è½½è·¯å¾„ï¼ˆå¦‚/home/soft2/24MM/LINUX/tempï¼‰ :> ");
+        System.out.print("please input patch file download path(example : /home/soft2/24MM/LINUX/temp) :> ");
         String patchFilePath = mInputUtils.putFilePath();
-        System.out.print("è¯·è¾“å…¥å·®åˆ†ä»£ç å­˜å‚¨æ–‡ä»¶å¤¹åï¼ˆå¦‚ CS1_CS2ï¼‰ :> ");
+        System.out.print("please input diff code store path(example CS1_CS2)  :> ");
         String codeFilePath = mInputUtils.putFilePath();
         mPatchesParentPath = patchFilePath + "/patches";
         String mPatchOfModelPath = patchFilePath + "/" + codeFilePath + "_patches";
@@ -153,7 +153,7 @@ public class Main {
 
 
     /**
-     * ç”Ÿæˆpatch ä¸‹è½½å‘½ä»¤çš„æ‰¹å¤„ç†shæ–‡ä»¶
+     * Éú³Épatch ÏÂÔØÃüÁîµÄÅú´¦ÀíshÎÄ¼ş
      * */
     private static void buildCmdFile(String diffFilePath, String patchCmdFile) {
         String diffFileName = diffFilePath.replace(patchCmdFile, "");
@@ -169,7 +169,7 @@ public class Main {
          */
         Map<String, TagInfo> mMainMap = mUtil.getDiffList();
 
-        //å†™å…¥ä¸­æ–‡å­—ç¬¦æ—¶è§£å†³ä¸­æ–‡ä¹±ç é—®é¢˜
+        //Ğ´ÈëÖĞÎÄ×Ö·ûÊ±½â¾öÖĞÎÄÂÒÂëÎÊÌâ
         FileOutputStream patchCmdFos= null;
         try {
             patchCmdFile = patchCmdFile + "\\" + mUtil.getPatchFileName(mDiffCmdNameMap, diffFileName) + "_cmd.sh";
@@ -179,8 +179,8 @@ public class Main {
             BufferedWriter patchCmdBw=new BufferedWriter(patchCmdOsw);
 
             /*String[] resultFileCmd = {
-                    "mkdir -p " + patches_result,  //  patchä¸‹è½½å®Œæˆåç»“æœä¿å­˜ä½ç½®   /home/soft2/24MM/LINUX/temp/patches_result",
-                    "cd " + patches_result,    // patchä¸‹è½½å®Œæˆåç»“æœä¿å­˜ä½ç½®    /home/soft2/24MM/LINUX/temp/patches_result",
+                    "mkdir -p " + patches_result,  //  patchÏÂÔØÍê³Éºó½á¹û±£´æÎ»ÖÃ   /home/soft2/24MM/LINUX/temp/patches_result",
+                    "cd " + patches_result,    // patchÏÂÔØÍê³Éºó½á¹û±£´æÎ»ÖÃ    /home/soft2/24MM/LINUX/temp/patches_result",
             };*/
 
             patchCmdBw.write("#!/bin/bash" + "\t\n");
@@ -188,13 +188,15 @@ public class Main {
 
             patchCmdBw.write("echo \"cmd start\"" + "\t\n");
 
-            patchCmdBw.write("PATCHESDIRECTORY=" + mPatchesParentPath + "/" /*å…·ä½“patchæœ€ç»ˆä¿å­˜çš„è·¯å¾„ /home/soft2/24MM/LINUX/temp/patches/"*/ + mUtil.getPatchFileName(mDiffCmdNameMap, diffFileName) + "\t\n");
+            patchCmdBw.write("PATCHESDIRECTORY=" + mPatchesParentPath + "/" /*¾ßÌåpatch×îÖÕ±£´æµÄÂ·¾¶ /home/soft2/24MM/LINUX/temp/patches/"*/ + mUtil.getPatchFileName(mDiffCmdNameMap, diffFileName) + "\t\n");
             patchCmdBw.write("mkdir -p $PATCHESDIRECTORY" + "\t\n");
             patchCmdBw.write("\t\n");
+            int cmdCount = 0;
             for(String path: mMainMap.keySet()) {
+                cmdCount = cmdCount + 1;
                 TagInfo readInfo = mMainMap.get(path);
 
-                String sourceCodePath = mPatchesParentPath + "/AndroidOpenSource";//mPatchOfModelPath;  //å­˜åœ¨patchçš„æ¨¡å—gitä¸‹è½½å¤„ "/home/soft2/24MM/LINUX/temp/preCS1_preCS2_patches/";
+                String sourceCodePath = mPatchesParentPath + "/AndroidOpenSource";//mPatchOfModelPath;  //´æÔÚpatchµÄÄ£¿égitÏÂÔØ´¦ "/home/soft2/24MM/LINUX/temp/preCS1_preCS2_patches/";
 
                 String patchCmd = null;
 
@@ -207,6 +209,8 @@ public class Main {
                             + "\" "
                             + readInfo.getNewRevision()
                             + " --stdout > $PATCHESDIRECTORY/" + readInfo.getPatchFileName();
+
+                    makeCmdString(patchCmdBw, readInfo, cmdCount, sourceCodePath, patchCmd);
                 }
 
                 if (readInfo.getNewRevision() == null) {
@@ -218,9 +222,14 @@ public class Main {
                             + "\" "
                             + readInfo.getOldRevision()
                             + " --stdout > $PATCHESDIRECTORY/" + readInfo.getPatchFileName();
+
+                    makeCmdString(patchCmdBw, readInfo, cmdCount, sourceCodePath, patchCmd);
                 }
 
-                if (readInfo.getOldRevision() != null && readInfo.getNewRevision() != null) {
+                if (readInfo.getOldRevision() != null
+                        && readInfo.getNewRevision() != null
+                        && !readInfo.getOldRevision().equals(readInfo.getNewRevision())) {
+
                     patchCmd = "git format-patch --src-prefix=\"a/"
                             + readInfo.getAndroidProjectPath()
                             + "\" --dst-prefix=\"b/"
@@ -228,67 +237,74 @@ public class Main {
                             //+ "\" -o $PATCHESDIRECTORY "
                             + "\" "
                             + readInfo.getOldRevision()
-                            + " "
+                            + ".."
                             + readInfo.getNewRevision()
                             + " --stdout > $PATCHESDIRECTORY/" + readInfo.getPatchFileName();
-                }
 
-
-                String initFile = mModelInitResult + "/" /*"/home/soft2/24MM/LINUX/temp/initial_result/"*/ + readInfo.getResultFileName();
-                String resultFile = mPatchesResult  + "/" /*"/home/soft2/24MM/LINUX/temp/patches_result/"*/ + readInfo.getResultFileName();
-                String[] patchCmdArrs={
-                        "#init Start!",
-                        "echo \"" + readInfo.getModelName() + " start!\"",
-                        "DIRECTORY=" + sourceCodePath  + "/" + readInfo.getAndroidProjectPath(),
-                        "if [ ! -d $DIRECTORY ]; then",
-                        "    mkdir -p $DIRECTORY",
-                        "    cd $DIRECTORY",
-                        "    git init",
-                        "fi",
-                        "INITFILE=" + initFile,
-                        "if [ ! -f \"$INITFILE\" ]; then",
-                        "    git remote add origin " + readInfo.getRemoteFetch() + "/" + readInfo.getProjectPath() + ".git",
-                        "    git fetch",
-                        "    if [ $? = '0' ]; then",
-                        "        mkdir -p " + mModelInitResult, ///home/soft2/24MM/LINUX/temp/initial_result",
-                        "        echo \"finished!\" > $INITFILE",
-                        "    else echo \"init has failed!\"",
-                        "    fi",
-                        "fi",
-                        "echo \"init has finished!\"",
-                        "#init Finished!",
-                        "#patch down Start!",
-                        "FILE=" + resultFile,
-                        "if [ ! -f \"$FILE\" ]; then",
-                        "    " + patchCmd,
-                        "    if [ $? = '0' ]; then",
-                        "        mkdir -p " + mPatchesResult, ///home/soft2/24MM/LINUX/temp/patches_result",
-                        "        echo \"finished!\" > $FILE",
-                        "    else echo \"down has failed!\"",
-                        "    fi",
-                        "fi",
-                        "echo \"down has finished!\"",
-                        "echo \"" + readInfo.getModelName() + " Successed!\"",
-                        "echo",
-                        "echo",
-                        "echo",
-                        //"rm -rf .git",
-                        "#patch down Finished!",
-                };
-                for (String arr:patchCmdArrs) {
-                    patchCmdBw.write(arr + "\t\n");
+                    makeCmdString(patchCmdBw, readInfo, cmdCount, sourceCodePath, patchCmd);
                 }
-                patchCmdBw.write("\t\n");
             }
+            System.out.printf("cmd¸öÊı: " + cmdCount);
 
-            //æ³¨æ„å…³é—­çš„å…ˆåé¡ºåºï¼Œå…ˆæ‰“å¼€çš„åå…³é—­ï¼Œåæ‰“å¼€çš„å…ˆå…³é—­
+            //×¢Òâ¹Ø±ÕµÄÏÈºóË³Ğò£¬ÏÈ´ò¿ªµÄºó¹Ø±Õ£¬ºó´ò¿ªµÄÏÈ¹Ø±Õ
             patchCmdBw.close();
             patchCmdOsw.close();
             patchCmdFos.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void makeCmdString(BufferedWriter patchCmdBw,
+                                      TagInfo readInfo,
+                                      int cmdCount,
+                                      String sourceCodePath,
+                                      String patchCmd) throws IOException {
+        String initFile = mModelInitResult + "/" /*"/home/soft2/24MM/LINUX/temp/initial_result/"*/ + readInfo.getResultFileName();
+        String resultFile = mPatchesResult  + "/" /*"/home/soft2/24MM/LINUX/temp/patches_result/"*/ + readInfo.getResultFileName();
+        String[] patchCmdArrs={
+                "#cmd " + cmdCount + " init Start!",
+                "echo \"" + readInfo.getModelName() + " start!\"",
+                "DIRECTORY=" + sourceCodePath  + "/" + readInfo.getAndroidProjectPath(),
+                "if [ ! -d $DIRECTORY ]; then",
+                "    mkdir -p $DIRECTORY",
+                "    cd $DIRECTORY",
+                "    git init",
+                "fi",
+                "INITFILE=" + initFile,
+                "if [ ! -f \"$INITFILE\" ]; then",
+                "    git remote add origin " + readInfo.getRemoteFetch() + "/" + readInfo.getProjectPath() + ".git",
+                "    git fetch",
+                "    if [ $? = '0' ]; then",
+                "        mkdir -p " + mModelInitResult, ///home/soft2/24MM/LINUX/temp/initial_result
+                "        echo \"finished!\" > $INITFILE",
+                "    else echo \"init has failed!\"",
+                "    fi",
+                "fi",
+                "echo \"init has finished!\"",
+                "#init Finished!",
+                "#patch down Start!",
+                "FILE=" + resultFile,
+                "if [ ! -f \"$FILE\" ]; then",
+                "    " + patchCmd,
+                "    if [ $? = '0' ]; then",
+                "        mkdir -p " + mPatchesResult, ///home/soft2/24MM/LINUX/temp/patches_result
+                "        echo \"finished!\" > $FILE",
+                "    else echo \"down has failed!\"",
+                "    fi",
+                "fi",
+                "echo \"down has finished!\"",
+                "echo \"" + readInfo.getModelName() + " Successed!\"",
+                "echo",
+                "echo",
+                "echo",
+                //"rm -rf .git",
+                "#patch down Finished!",
+        };
+        for (String arr:patchCmdArrs) {
+            patchCmdBw.write(arr + "\t\n");
+        }
+        patchCmdBw.write("\t\n");
     }
 
 }
