@@ -85,14 +85,14 @@ public class LogFilterMain extends JFrame implements INotiEvent
     final String              IOS_DEFAULT_CMD            = "adb logcat -v time ";
     final String              IOS_SELECTED_CMD_FIRST     = "adb -s ";
     final String              IOS_SELECTED_CMD_LAST      = " logcat -v time ";
-//    final String              ANDROID_DEFAULT_CMD        = "logcat -v time ";
-//    final String              ANDROID_THREAD_CMD         = "logcat -v threadtime ";
-//    final String              ANDROID_EVENT_CMD          = "logcat -b events -v time ";
-//    final String              ANDROID_RADIO_CMD          = "logcat -b radio -v time          ";
-//    final String              ANDROID_CUSTOM_CMD         = "logcat ";
+    final String              ANDROID_DEFAULT_CMD        = "logcat -v time ";
+    final String              ANDROID_THREAD_CMD         = "logcat -v threadtime ";
+    final String              ANDROID_EVENT_CMD          = "logcat -b events -v time ";
+    final String              ANDROID_RADIO_CMD          = "logcat -b radio -v time          ";
+    final String              ANDROID_CUSTOM_CMD         = "logcat ";
     final String              ANDROID_DEFAULT_CMD_FIRST  = "adb ";
     final String              ANDROID_SELECTED_CMD_FIRST = "adb -s ";
-//    final String              ANDROID_SELECTED_CMD_LAST  = " logcat -v time ";
+    final String              ANDROID_SELECTED_CMD_LAST  = " logcat -v time ";
     final String[]            DEVICES_CMD                = {"adb devices", "", ""};
     
     static final int          DEFAULT_WIDTH              = 1200;
@@ -1055,27 +1055,27 @@ public class LogFilterMain extends JFrame implements INotiEvent
         JLabel jlProcessCmd = new JLabel("Cmd : ");
         m_comboCmd = new JComboBox();
         m_comboCmd.setPreferredSize( new Dimension( 180, 25) );
-//        m_comboCmd.setMaximumSize( m_comboCmd.getPreferredSize()  );
-//        m_comboCmd.setSize( 20000, m_comboCmd.getHeight() );
-//        m_comboCmd.addItem(ANDROID_THREAD_CMD);
-//        m_comboCmd.addItem(ANDROID_DEFAULT_CMD);
-//        m_comboCmd.addItem(ANDROID_RADIO_CMD);
-//        m_comboCmd.addItem(ANDROID_EVENT_CMD);
-//        m_comboCmd.addItem(ANDROID_CUSTOM_CMD);
-//        m_comboCmd.addItemListener(new ItemListener()
-//        {
-//            public void itemStateChanged(ItemEvent e)
-//            {
-//                if(e.getStateChange() != ItemEvent.SELECTED) return;
-//
-//                if (e.getItem().equals(ANDROID_CUSTOM_CMD)) {
-//                    m_comboCmd.setEditable(true);
-//                } else {
-//                    m_comboCmd.setEditable(false);
-//                }
-////                setProcessCmd(m_comboDeviceCmd.getSelectedIndex(), m_strSelectedDevice);
-//            }
-//        });
+        m_comboCmd.setMaximumSize( m_comboCmd.getPreferredSize()  );
+        m_comboCmd.setSize( 20000, m_comboCmd.getHeight() );
+        m_comboCmd.addItem(ANDROID_THREAD_CMD);
+        m_comboCmd.addItem(ANDROID_DEFAULT_CMD);
+        m_comboCmd.addItem(ANDROID_RADIO_CMD);
+        m_comboCmd.addItem(ANDROID_EVENT_CMD);
+        m_comboCmd.addItem(ANDROID_CUSTOM_CMD);
+        m_comboCmd.addItemListener(new ItemListener()
+        {
+            public void itemStateChanged(ItemEvent e)
+            {
+                if(e.getStateChange() != ItemEvent.SELECTED) return;
+
+                if (e.getItem().equals(ANDROID_CUSTOM_CMD)) {
+                    m_comboCmd.setEditable(true);
+                } else {
+                    m_comboCmd.setEditable(false);
+                }
+                setProcessCmd(m_comboDeviceCmd.getSelectedIndex(), m_strSelectedDevice);
+            }
+        });
 
         m_btnClear = new JButton("Clear");
         m_btnClear.setMargin(new Insets(0, 0, 0, 0));
@@ -1404,13 +1404,13 @@ public class LogFilterMain extends JFrame implements INotiEvent
         {
             if(strSelectedDevice != null && strSelectedDevice.length() > 0)
             {
-//                m_comboCmd.addItem(ANDROID_SELECTED_CMD_FIRST + strSelectedDevice + ANDROID_SELECTED_CMD_LAST);
-//                m_strProcessCmd = ANDROID_SELECTED_CMD_FIRST + strSelectedDevice + ANDROID_SELECTED_CMD_LAST;
+                m_comboCmd.addItem(ANDROID_SELECTED_CMD_FIRST + strSelectedDevice + ANDROID_SELECTED_CMD_LAST);
+                //m_strProcessCmd = ANDROID_SELECTED_CMD_FIRST + strSelectedDevice + ANDROID_SELECTED_CMD_LAST;
             }
             else
             {
-//                m_comboCmd.addItem(ANDROID_DEFAULT_CMD);
-//                m_strProcessCmd = ANDROID_DEFAULT_CMD;
+                m_comboCmd.addItem(ANDROID_DEFAULT_CMD);
+                //m_strProcessCmd = ANDROID_DEFAULT_CMD;
             }
         }
         else if(nType == DEVICES_IOS)
@@ -1487,7 +1487,8 @@ public class LogFilterMain extends JFrame implements INotiEvent
 
                     while(true)
                     {
-                        Thread.sleep(50);
+                        //Thread.sleep(50);
+                        //wait(50);
 
                         if(m_nChangedFilter == STATUS_CHANGE || m_nChangedFilter == STATUS_PARSING)
                             continue;
