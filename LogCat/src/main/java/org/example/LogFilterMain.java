@@ -518,26 +518,26 @@ public class LogFilterMain extends JFrame implements INotiEvent
     {
         addDesc(VERSION);
         addDesc("");
-        addDesc("Version 1.8 : java -jar LogFilter_xx.jar [filename] 眠啊");
-        addDesc("Version 1.7 : copy矫 焊捞绰 column父 clipboard俊 汗荤(Line 力寇)");
-        addDesc("Version 1.6 : cmd霓焊冠胶 辨捞 绊沥");
-        addDesc("Version 1.5 : Highlight color list眠啊()");
-        addDesc("   - LogFilterColor.ini 俊 墨款飘客 蔼 持绢 林矫搁 邓聪促.");
+        addDesc("版本1.8:java-jar LogFilter_xxx.jar[filename]添加");
+        addDesc("仅将版本1.7:copy时显示的column复制到剪贴板(不包括行)");
+        addDesc("Version 1.6:cmd组合框固定长度");
+        addDesc("添加版本1.5:Highlight color list()");
+        addDesc("-在LogFilterColor.ini中加上计数和值即可");
         addDesc("   - ex)INI_HIGILIGHT_COUNT=2");
         addDesc("   -    INI_COLOR_HIGILIGHT_0=0xFFFF");
         addDesc("   -    INI_COLOR_HIGILIGHT_1=0x00FF");
-        addDesc("Version 1.4 : 芒农扁 历厘");
-        addDesc("Version 1.3 : recent file 棺 open皋春眠啊");
-        addDesc("Version 1.2 : Tid 鞘磐 眠啊");
-        addDesc("Version 1.1 : Level F 眠啊");
-        addDesc("Version 1.0 : Pid filter 眠啊");
-        addDesc("Version 0.9 : Font type 眠啊");
-        addDesc("Version 0.8 : 鞘磐眉农 冠胶 眠啊");
-        addDesc("Version 0.7 : 目澄肺弊 颇教/LogFilter.ini俊 拿矾沥狼(0~7)");
-        addDesc("Version 0.6 : 鞘磐 措家巩 公矫");
-        addDesc("Version 0.5 : 疙飞绢 ini颇老肺 历厘");
-        addDesc("Version 0.4 : add thread option, filter 历厘");
-        addDesc("Version 0.3 : 窜富 急琶 救登绰 巩力 荐沥");
+        addDesc("Version 1.4:保存窗口大小");
+        addDesc("添加Version 1.3:present file和open菜单");
+        addDesc("添加版本1.2:Tid筛选器");
+        addDesc("版本1.1:Level F添加");
+        addDesc("添加版本1.0:Pid filter");
+        addDesc("添加版本0.9:Font type");
+        addDesc("Version 0.8:添加筛选器复选框");
+        addDesc("Version 0.7：在内核日志解析/LogFilter.ini中定义颜色(0~7)");
+        addDesc("Version 0.6:忽略过滤器大小写");
+        addDesc("Version 0.5:另存为命令ini文件");
+        addDesc("版本0.4:add thread option，保存filter");
+        addDesc("Version 0.3:解决终端未选择的问题");
         addDesc("");
         addDesc("[Tag]");
         addDesc("Alt+L/R Click : Show/Remove tag");
@@ -1592,7 +1592,13 @@ public class LogFilterMain extends JFrame implements INotiEvent
                         synchronized(FILTER_LOCK)
                         {
                             m_nChangedFilter = STATUS_READY;
-                            FILTER_LOCK.wait();
+                            try {
+                                FILTER_LOCK.wait();
+                            } catch (InterruptedException e) {
+                                // 处理中断异常，例如记录日志并恢复中断状态
+                                Thread.currentThread().interrupt(); // 重新设置中断标志
+                                // 可选：进行清理或退出操作
+                            }
 
                             m_nChangedFilter = STATUS_PARSING;
 
