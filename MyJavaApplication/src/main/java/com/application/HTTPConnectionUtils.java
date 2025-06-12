@@ -68,6 +68,7 @@ public class HTTPConnectionUtils {
             }
             mHttpConnection.disconnect();
         }
+        Log.d(TAG, result);
         return result;
     }
 }

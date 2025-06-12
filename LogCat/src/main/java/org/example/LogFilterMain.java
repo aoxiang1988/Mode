@@ -1002,6 +1002,29 @@ public class LogFilterMain extends JFrame implements INotiEvent
         optionFilter.add(getCheckPanel(), BorderLayout.EAST);
         optionFilter.add(getFilterPanel(), BorderLayout.CENTER);
 
+        /*JPanel jpAI = new JPanel(new BorderLayout());
+        jpAI.setBorder(BorderFactory.createTitledBorder("AI Cmd"));
+        JTextField m_AiWord    = new JTextField();
+        jpAI.add(m_AiWord, BorderLayout.NORTH);
+
+        JLabel resultView = new JLabel();
+        resultView.setText(" result ");
+        jpAI.add(resultView, BorderLayout.SOUTH);
+
+        JButton m_btnAiFind = new JButton("Find");
+        //m_btnAiFind.setMargin(new Insets(0, 0, 0, 0));
+        m_btnAiFind.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.printf(m_AiWord.getText());
+                String result = m_AiWord.getText();
+                resultView.setText(result);
+            }
+        });
+        jpAI.add(m_btnAiFind);
+
+        optionFilter.add(jpAI, BorderLayout.SOUTH);
+*/
         return optionFilter;
     }
 

@@ -99,6 +99,10 @@ public class Main {
         sendBroadCastReceiver(new Intent("add"));
         sendBroadCastReceiver(new PendingIntent("bbb", 5000));
 
+
+        HTTPConnectionUtils utils = HTTPConnectionUtils.getUtils();
+        utils.setUrl("https://www.baidu.com/s?wd=sniffing%20Matroska%20Extractor");
+        utils.httpConnect();
     }
 
     private static void factoryMode() {
