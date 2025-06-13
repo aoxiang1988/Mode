@@ -37,15 +37,15 @@ public class Log {
         }
     }
 
-    static void i(String tag, String info) {
+    public static void i(String tag, String info) {
         writeLog(tag, info);
     }
 
-    static void e(String tag, String info) {
+    public static void e(String tag, String info) {
         writeLog(tag, info);
     }
 
-    static void w(String tag, String info) {
+    public static void w(String tag, String info) {
         writeLog(tag, info);
     }
 }

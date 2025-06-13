@@ -16,16 +16,17 @@ import com.application.selfdesignpattern.proxymode.WorkClassPoxy;
 import com.application.selfdesignpattern.simplefactory.SimpleFactoryA;
 import com.application.selfdesignpattern.simplefactory.SimpleFactoryB;
 import com.application.selfdesignpattern.simplefactory.SimpleFactoryBase;
+import com.sun.crypto.provider.BlowfishKeyGenerator;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Date;
+import java.util.Objects;
 
 import static com.application.broadcast.Receiver.registerReceiver;
 import static com.application.broadcast.Receiver.sendBroadCastReceiver;
 
 public class Main {
-    private static WorkLooper mWorkLooper = null;
 
     private static final String MSG_A = "msg-a";
     private static final String MSG_B = "msg-b";
@@ -35,19 +36,15 @@ public class Main {
         Handler handler = new Handler() {
             @Override
             public void handleMessage(MessageQueue.Message msg) {
-                Date currentTime;
                 switch (msg.msgString) {
                     case MSG_A:
-                        currentTime = new Date();
-                        Log.d(getClass().getName(), MSG_A + "--" + currentTime.getTime());
+                        Log.i(TAG, MSG_A);
                         break;
                     case MSG_B:
-                        currentTime = new Date();
-                        Log.d(getClass().getName(), MSG_B + "--" + currentTime.getTime());
+                        Log.i(TAG, MSG_B);
                         break;
                     case MSG_C:
-                        currentTime = new Date();
-                        Log.d(getClass().getName(), MSG_C + "--" + currentTime.getTime());
+                        Log.i(TAG, MSG_C);
                         break;
                     default:
                         break;
@@ -55,9 +52,9 @@ public class Main {
             }
         };
 
-        handler.sendMessage("msg-a");
-        handler.sendMessage("msg-b", 20);
-        handler.sendMessage("msg-c", 1050);
+        handler.sendMessage(MSG_A);
+        handler.sendMessage(MSG_B, 6000);
+        handler.sendMessage(MSG_C, 1050);
     }
 
     private static String TAG = "Main";
@@ -74,11 +71,11 @@ public class Main {
         observerClient.StopObserverClient();//注销观察者
 
         Director.conCreate();
-        
-        mWorkLooper = WorkLooper.getInstance();//主线程提前启动loop线程
-        //WorkUtils.linkStack();
-        //WorkUtils.linkDLStack();
-        //WorkUtils.fifoQueue();
+
+        WorkUtils.linkStack();
+        WorkUtils.linkDLStack();
+        WorkUtils.fifoQueue();
+
         myHandlerTest();
 
         WorkClassPoxy workClassPoxy = new WorkClassPoxy();

@@ -2,10 +2,9 @@ package com.application.handler;
 
 public abstract class Handler implements IHandler {
 
-    private MessageQueue mMessageQueue;
 
     protected Handler() {
-        mMessageQueue = MessageQueue.getInstance(this);
+        WorkLooper.getInstance(this);//创建handler 消息loop线程
     }
 
     public void sendMessage(String msg) {
@@ -13,6 +12,6 @@ public abstract class Handler implements IHandler {
     }
 
     public void sendMessage(String msg, long delayTime) {
-        mMessageQueue.pushToMessageQueue(msg, delayTime);
+        WorkLooper.mMessageQueue.pushToMessageQueue(msg, delayTime);
     }
 }

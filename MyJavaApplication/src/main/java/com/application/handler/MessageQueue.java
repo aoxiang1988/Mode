@@ -5,16 +5,15 @@ import java.util.Date;
 
 public class MessageQueue {
 
-    private static MessageQueue mMessageQueue = null;
     private static Handler mHandler;
 
     static MessageQueue getInstance(Handler handler) {
-        if (mMessageQueue == null) {
-            mMessageQueue = new MessageQueue();
-            mMessageQueue.initMessageQueue();
+        if (WorkLooper.mMessageQueue == null) {
+            WorkLooper.mMessageQueue = new MessageQueue();
+            WorkLooper.mMessageQueue.initMessageQueue();
         }
         mHandler = handler;
-        return mMessageQueue;
+        return WorkLooper.mMessageQueue;
     }
 
     public static class Message {
@@ -25,7 +24,7 @@ public class MessageQueue {
         public String msgString;
     }
 
-    private Message mHandlerMsgQue = null;
+    private static Message mHandlerMsgQue = null;
 
     private void initMessageQueue() {
         mHandlerMsgQue = new Message();
@@ -33,65 +32,82 @@ public class MessageQueue {
         mHandlerMsgQue.next = null;
         mHandlerMsgQue.time = -1;
         mHandlerMsgQue.storeTime = -1;
-        mHandlerMsgQue.msgString = null;
+        mHandlerMsgQue.msgString = "default";
     }
 
     private final Lock mLock = new Lock();
 
     void pushToMessageQueue(String msg, long delayTime) {
         synchronized (mLock) {
-            Date currentTime = new Date();
-            Message msgNode = new Message();
-            msgNode.next = null;
-            msgNode.front = null;
-            msgNode.msgString = msg;
-            msgNode.time = currentTime.getTime() + delayTime;
-            msgNode.storeTime = currentTime.getTime();
+            // 处理非法参数
+            if (msg == null) {
+                return; // 或抛出异常
+            }
 
-            Message tempNode = mHandlerMsgQue;
-            boolean flag = false;
-            while (tempNode.next != null) {
-                if (tempNode.time <= msgNode.time && tempNode.next.time >= msgNode.time) {
-                    msgNode.next = tempNode.next;
-                    msgNode.front = tempNode;
-                    msgNode.next.front = msgNode;
-                    msgNode.front.next = msgNode;
-                    flag = true;
-                    break;
+            long currentTimeMillis = System.currentTimeMillis();
+            long scheduledTime = currentTimeMillis + delayTime;
+
+            Message msgNode = new Message();
+            msgNode.msgString = msg;
+            msgNode.time = scheduledTime;
+            msgNode.storeTime = currentTimeMillis;
+
+            // 如果链表为空，初始化头节点
+            if (mHandlerMsgQue == null) {
+                mHandlerMsgQue = msgNode;
+                return;
+            }
+
+            // 查找插入位置
+            Message current = mHandlerMsgQue;
+            while (current.next != null) {
+                if (current.time <= msgNode.time && current.next.time >= msgNode.time) {
+                    // 插入中间
+                    msgNode.next = current.next;
+                    msgNode.front = current;
+                    current.next.front = msgNode;
+                    current.next = msgNode;
+                    return;
                 }
-                tempNode = tempNode.next;
+                current = current.next;
             }
-            if (!flag) {
-                tempNode.next = msgNode;
-                msgNode.front = tempNode;
-            }
+
+            // 插入尾部
+            current.next = msgNode;
+            msgNode.front = current;
         }
     }
+
 
     boolean isQueueEmpty() {
         return false;
     }
 
-    void sendMsgToMainThread() throws NullPointerException {
+    void sendMsgToMainThread() {
         synchronized (mLock) {
-            Date currentTime = new Date();
-            Message tempNode = mHandlerMsgQue.next;
-            Message resultNode;
-            while (tempNode != null && tempNode.time != -1) {
-                if (tempNode.time <= currentTime.getTime()) {
-                    resultNode = tempNode;
-                    tempNode = tempNode.next;
-                    if (tempNode != null) {
-                        tempNode.front = resultNode.front;
+            long currentTimeMillis = System.currentTimeMillis();
+            Message current = mHandlerMsgQue.next;
+
+            while (current != null && current.time != -1) {
+                if (current.time <= currentTimeMillis) {
+                    Message matchedMessage = current;
+                    current = current.next;
+
+                    // Remove matchedMessage from the linked list
+                    if (matchedMessage.front != null) {
+                        matchedMessage.front.next = current;
                     }
-                    resultNode.front.next = tempNode;
-                    resultNode.next = null;
-                    resultNode.front = null;
-                    resultNode.time = 0;
-                    mHandler.handleMessage(resultNode);
-                }
-                if (tempNode != null) {
-                    tempNode = tempNode.next;
+                    if (current != null) {
+                        current.front = matchedMessage.front;
+                    }
+
+                    // Reset message fields and handle it
+                    matchedMessage.next = null;
+                    matchedMessage.front = null;
+                    matchedMessage.time = 0;
+                    mHandler.handleMessage(matchedMessage);
+                } else {
+                    current = current.next;
                 }
             }
         }
