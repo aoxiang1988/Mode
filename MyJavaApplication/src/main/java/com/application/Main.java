@@ -57,7 +57,7 @@ public class Main {
         handler.sendMessage(MSG_C, 1050);
     }
 
-    private static String TAG = "Main";
+    private static final String TAG = "Main";
     public static void main(String[] args) {
         Log.i(TAG, "my app\n");
         factoryMode();
@@ -84,14 +84,38 @@ public class Main {
         IntentFilter iFilter= new IntentFilter();
         iFilter.addAction("add");
         iFilter.addAction("abc");
+        iFilter.addAction("bbb");
 
         BroadCastReceiver receiver = new BroadCastReceiver() {
             @Override
             public void onReceiver(Intent i) {
-                Log.i(TAG, "I got the broad cast ： "+i.getAction());
+                if (i.getAction().equals("abc")) {
+                    Log.i(TAG, "receiver got the broad cast ： " + i.getAction());
+                }
             }
         };
         registerReceiver(receiver, iFilter);
+
+        BroadCastReceiver receiver2 = new BroadCastReceiver() {
+            @Override
+            public void onReceiver(Intent i) {
+                if (i.getAction().equals("add")) {
+                    Log.i(TAG, "receiver2 got the broad cast ： " + i.getAction());
+                }
+            }
+        };
+        registerReceiver(receiver2, iFilter);
+
+        BroadCastReceiver receiver3 = new BroadCastReceiver() {
+            @Override
+            public void onReceiver(Intent i) {
+                if (i.getAction().equals("bbb")) {
+                    Log.i(TAG, "receiver3 got the broad cast ： " + i.getAction());
+                }
+            }
+        };
+        registerReceiver(receiver3, iFilter);
+
         sendBroadCastReceiver(new Intent("abc"));
         sendBroadCastReceiver(new Intent("add"));
         sendBroadCastReceiver(new PendingIntent("bbb", 5000));

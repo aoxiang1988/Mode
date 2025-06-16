@@ -4,9 +4,13 @@ import java.util.Calendar;
 
 public class Log {
 
-    private static boolean DeBUG = false;
+    private static final boolean DeBUG = false;
+    private static final String DLevel = "D";
+    private static final String ILevel = "I";
+    private static final String ELevel = "E";
+    private static final String WLevel = "W";
 
-    private static void writeLog(String tag, String info) {
+    private static void writeLog(String level, String tag, String info) {
         // 其日历字段已由当前日期和时间初始化：
         Calendar rightNow = Calendar.getInstance(); // 子类对象
         // 获取年
@@ -28,24 +32,24 @@ public class Log {
         else
             am_pm = "AM";
         String time = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second + ":" + milSecond + " " + am_pm;
-        System.out.println(time + "  " + tag + ":  " + info);
+        System.out.println(time + "  " + level + "  " + tag + ":  " + info);
     }
 
     public static void d(String tag, String info) {
         if (DeBUG) {
-            writeLog(tag, info);
+            writeLog(DLevel, tag, info);
         }
     }
 
     public static void i(String tag, String info) {
-        writeLog(tag, info);
+        writeLog(ILevel, tag, info);
     }
 
     public static void e(String tag, String info) {
-        writeLog(tag, info);
+        writeLog(ELevel, tag, info);
     }
 
     public static void w(String tag, String info) {
-        writeLog(tag, info);
+        writeLog(WLevel, tag, info);
     }
 }
