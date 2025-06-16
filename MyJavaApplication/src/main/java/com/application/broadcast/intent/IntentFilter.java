@@ -1,15 +1,15 @@
 package com.application.broadcast.intent;
 
 
-import com.application.QueueUtils;
+import com.application.WorkUtils;
 
 public class IntentFilter {
 
-    private QueueUtils mQueueUtils;
-    private QueueUtils.Queue mCurrentQueue;
+    private WorkUtils.QueueUtils mQueueUtils;
+    private WorkUtils.QueueUtils.Queue mCurrentQueue;
 
     public IntentFilter() {
-        mQueueUtils = QueueUtils.getInstance();
+        mQueueUtils = WorkUtils.QueueUtils.getInstance();
         mCurrentQueue = mQueueUtils.initLinkQueue(new Intent());
     }
 
@@ -20,7 +20,7 @@ public class IntentFilter {
     }
 
     public Intent getCurrentIntent(String action) {
-        QueueUtils.QueueNode result = mCurrentQueue.getLinkQueue();
+        WorkUtils.QueueUtils.QueueNode result = mCurrentQueue.getLinkQueue();
         while (result != null) {
             if (((Intent) result.value).getAction() != null &&
                     ((Intent) result.value).getAction().equalsIgnoreCase(action)) {
