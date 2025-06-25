@@ -58,14 +58,14 @@ public class SwingThreePanelDemo extends JFrame {
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
 
         JPanel filePanel1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton fileBtn1 = new JButton("选择Old版本配置文件");
+        JButton fileBtn1 = new JButton("选择旧版本配置文件");
         fileLabel1 = new JLabel("未选择");
         fileBtn1.addActionListener(e -> chooseFile(1));
         filePanel1.add(fileBtn1);
         filePanel1.add(fileLabel1);
 
         JPanel filePanel2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton fileBtn2 = new JButton("选择New版本配置文件");
+        JButton fileBtn2 = new JButton("选择新版本配置文件");
         fileLabel2 = new JLabel("未选择");
         fileBtn2.addActionListener(e -> chooseFile(2));
         filePanel2.add(fileBtn2);
