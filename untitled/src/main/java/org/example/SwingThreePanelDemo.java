@@ -115,9 +115,9 @@ public class SwingThreePanelDemo extends JFrame {
         infoTextArea.append("3.输入linux要下载patch的路径，例如/home/temp\n");
         infoTextArea.append("4.差分版本信息，例如CS1_CS2\n");
         infoTextArea.append("5.点击执行，等待完成后到选择的文件夹下，将生成的sh文件拷贝到linux服务器对应的路径下执行即可\n");
-        infoTextArea.append("*注意*\n");
+        infoTextArea.append("\n*注意*\n");
         infoTextArea.append("由于工具不完善，做如下准备：\n");
-        infoTextArea.append("1.修改新旧repo配置文件的文件名，例子：AU_LINUX_ANDROID_LA.AU.1.4.5.R1.10.00.00.999.028.xml改为LA.AU.1.4.5.R1-028-gen3meta.0.xml\n");
+        infoTextArea.append("1.为防止出现异常，建议修改新旧repo配置文件的文件名，\n   例子：AU_LINUX_ANDROID_LA.AU.1.4.5.R1.10.00.00.999.028.xml改为LA.AU.1.4.5.R1-028-gen3meta.0.xml\n");
         infoTextArea.append("2.修改后的新旧repo配置文件放入【选择存放要生成的sh文件路径】中\n");
         panel4.add(scrollPane, BorderLayout.CENTER);
 
@@ -161,79 +161,44 @@ public class SwingThreePanelDemo extends JFrame {
         }
     }
 
-    private void showCompletionDialog() {
-        // 创建自定义面板
-        JPanel panel = new JPanel(new BorderLayout());
-
-        JLabel messageLabel = new JLabel("操作已执行完成！");
-        JButton openFolderButton = new JButton("打开文件夹");
-
-        panel.add(messageLabel, BorderLayout.CENTER);
-        panel.add(openFolderButton, BorderLayout.SOUTH);
-
-        // 显示对话框
-        int option = JOptionPane.showOptionDialog(
-                this,
-                panel,
-                "执行完成",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                new Object[]{},
-                null
-        );
-
-        // 添加按钮动作监听器
-        openFolderButton.addActionListener(e -> {
-            if (folderPath != null && !folderPath.isEmpty()) {
-                File folder = new File(folderPath);
-                if (folder.exists() && folder.isDirectory()) {
-                    try {
-                        Desktop.getDesktop().open(folder); // 打开文件夹
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(this, "无法打开文件夹: " + ex.getMessage());
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "文件夹不存在！");
-                }
-            }
-        });
-    }
-
-
     private void onExecute(ActionEvent e) {
-        execButton.setEnabled(false);
-        statusLabel.setText("执行中...");
+        boolean isAnyEmpty = folderPath.isEmpty() || filePath1.isEmpty() || filePath2.isEmpty();
+        if (isAnyEmpty) {
+            showInfoDialog(true);
+        } else {
+            execButton.setEnabled(false);
+            statusLabel.setText("执行中...");
 
-        inputParam1 = textField1.getText(); // 获取参数1的值
-        inputParam2 = textField2.getText(); // 获取参数2的值
 
-        // 执行操作，例如打印参数值
-        System.out.println("服务器路径: " + inputParam1);
-        System.out.println("版本差分名: " + inputParam2);
+            inputParam1 = textField1.getText(); // 获取参数1的值
+            inputParam2 = textField2.getText(); // 获取参数2的值
 
-        System.out.println("old file: " + fileName1);
-        System.out.println("new file: " + fileName2);
+            // 执行操作，例如打印参数值
+            System.out.println("服务器路径: " + inputParam1);
+            System.out.println("版本差分名: " + inputParam2);
 
-        mInputUtils.buildDiffFile(folderPath, fileName1, fileName2);
-        mInputUtils.diffInitFun (folderPath, inputParam1, inputParam2);
+            System.out.println("old file: " + fileName1);
+            System.out.println("new file: " + fileName2);
 
-        // 使用SwingWorker避免阻塞UI线程
-        new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                Thread.sleep(10000); // 10秒
-                return null;
-            }
+            mInputUtils.buildDiffFile(folderPath, fileName1, fileName2);
+            mInputUtils.diffInitFun(folderPath, inputParam1, inputParam2);
 
-            @Override
-            protected void done() {
-                statusLabel.setText("执行完成！");
-                execButton.setEnabled(true);
-                // 弹出对话框
-                //showCompletionDialog();
-            }
-        }.execute();
+            // 使用SwingWorker避免阻塞UI线程
+            new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    Thread.sleep(2500); // 5秒
+                    return null;
+                }
+
+                @Override
+                protected void done() {
+                    statusLabel.setText("执行完成！");
+                    execButton.setEnabled(true);
+                }
+            }.execute();
+            showInfoDialog(false);
+        }
     }
 
     // 全局设置字体
@@ -248,9 +213,40 @@ public class SwingThreePanelDemo extends JFrame {
         }
     }
 
+    // 信息提示框实现
+    private void showInfoDialog(boolean isAnyEmpty) {
+        JDialog dialog = new JDialog(this, "提示", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setSize(350, 150);
+        dialog.setLocationRelativeTo(this);
+        dialog.setLayout(new BorderLayout());
+
+        JLabel msgLabel = new JLabel(isAnyEmpty ? "请设置参数！" : "已执行完成，是否打开文件夹？", SwingConstants.CENTER);
+        msgLabel.setFont(msgLabel.getFont().deriveFont(Font.PLAIN, 18f));
+        dialog.add(msgLabel, BorderLayout.CENTER);
+
+        JPanel btnPanel = new JPanel();
+        JButton okBtn = new JButton("确定");
+        btnPanel.add(okBtn);
+        dialog.add(btnPanel, BorderLayout.SOUTH);
+
+        okBtn.addActionListener(e -> {
+            dialog.dispose();
+            if (!isAnyEmpty) {
+                try {
+                    Desktop.getDesktop().open(new File(folderPath));
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "无法打开文件夹:\n" + ex.getMessage());
+                }
+            }
+        });
+
+        dialog.setVisible(true);
+    }
+
+
     public static void main(String[] args) {
         mInputUtils = new DiffFileCheckerUtils();
-
         setUIFont(new Font("Dialog", Font.PLAIN, 20)); // 设置全局字体为20号
         SwingUtilities.invokeLater(() -> {
             SwingThreePanelDemo frame = new SwingThreePanelDemo();
