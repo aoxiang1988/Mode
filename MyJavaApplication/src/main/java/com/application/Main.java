@@ -16,12 +16,6 @@ import com.application.selfdesignpattern.proxymode.WorkClassPoxy;
 import com.application.selfdesignpattern.simplefactory.SimpleFactoryA;
 import com.application.selfdesignpattern.simplefactory.SimpleFactoryB;
 import com.application.selfdesignpattern.simplefactory.SimpleFactoryBase;
-import com.sun.crypto.provider.BlowfishKeyGenerator;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.Date;
-import java.util.Objects;
 
 import static com.application.broadcast.Receiver.registerReceiver;
 import static com.application.broadcast.Receiver.sendBroadCastReceiver;
