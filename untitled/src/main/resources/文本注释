@@ -1,0 +1,30 @@
+title=版本差异提取器
+select.folder=选择生成sh文件的文件夹
+button.select.folder=选择文件夹
+label.not.selected=未选择
+select.config.files=选择repo manifest配置文件
+button.select.old.file=选择旧版本配置文件
+button.select.new.file=选择新版本配置文件
+execute.panel.title=执行操作
+button.execute=执行
+status.waiting=等待操作
+label.server.path=服务器路径:
+label.diff.name=版本差分名:
+usage.instructions=使用说明
+info.text=\
+  1.选择存放要生成的sh文件路径\n\
+  2.选择前一个版本用的repo manifest配置文件和后一个版本用的repo manifest配置文件\n\
+  3.输入Linux要下载patch的路径，例如/home/temp\n\
+  4.差分版本信息，例如CS1_CS2\n\
+  5.点击执行，完成后到选择的文件夹下，将生成的sh文件拷贝到Linux服务器对应的路径下执行即可\n\
+  \n*注意*\n\
+  由于工具不完善，做如下准备：\n\
+  1.为防止出现异常，建议修改新旧repo manifest配置文件的文件名，\n\
+     示例：AU_LINUX_ANDROID_LA.AU.1.4.5.R1.10.00.00.999.028.xml改为LA.AU.1.4.5.R1-028-gen3meta.0.xml\n\
+  2.修改后的新旧repo manifest配置文件放入【选择存放要生成的sh文件路径】中
+prompt.empty.params=请设置参数！
+prompt.execution.done=已执行完成，是否打开文件夹？
+status.finished=执行完成
+dialog.title=提示
+dialog.button.title=确定
+status.working=执行中...
