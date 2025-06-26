@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Enumeration;
+import java.util.ResourceBundle;
 
 public class SwingThreePanelDemo extends JFrame {
 
@@ -29,9 +30,10 @@ public class SwingThreePanelDemo extends JFrame {
 
     private static JTextArea infoTextArea;
     private JScrollPane scrollPane;
+    private static final ResourceBundle messages = ResourceBundle.getBundle("lang.Message");
 
     public SwingThreePanelDemo() {
-        setTitle("版本差分提取器");
+        setTitle(messages.getString("title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1500, 700); // 固定大小为500*300
         setLocationRelativeTo(null);
@@ -44,29 +46,29 @@ public class SwingThreePanelDemo extends JFrame {
 
         // 区域1：文件夹选择
         JPanel panel1 = new JPanel();
-        panel1.setBorder(new TitledBorder("选择生成sh文件的文件夹"));
+        panel1.setBorder(new TitledBorder(messages.getString("select.folder")));
         panel1.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JButton folderBtn = new JButton("选择文件夹");
-        folderLabel = new JLabel("未选择");
+        JButton folderBtn = new JButton(messages.getString("button.select.folder"));
+        folderLabel = new JLabel(messages.getString("label.not.selected"));
         folderBtn.addActionListener(e -> chooseFolder());
         panel1.add(folderBtn);
         panel1.add(folderLabel);
 
         // 区域2：文件选择
         JPanel panel2 = new JPanel();
-        panel2.setBorder(new TitledBorder("选择repo配置文件文件"));
+        panel2.setBorder(new TitledBorder(messages.getString("select.config.files")));
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
 
         JPanel filePanel1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton fileBtn1 = new JButton("选择旧版本配置文件");
-        fileLabel1 = new JLabel("未选择");
+        JButton fileBtn1 = new JButton(messages.getString("button.select.old.file"));
+        fileLabel1 = new JLabel(messages.getString("label.not.selected"));
         fileBtn1.addActionListener(e -> chooseFile(1));
         filePanel1.add(fileBtn1);
         filePanel1.add(fileLabel1);
 
         JPanel filePanel2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton fileBtn2 = new JButton("选择新版本配置文件");
-        fileLabel2 = new JLabel("未选择");
+        JButton fileBtn2 = new JButton(messages.getString("button.select.new.file"));
+        fileLabel2 = new JLabel(messages.getString("label.not.selected"));
         fileBtn2.addActionListener(e -> chooseFile(2));
         filePanel2.add(fileBtn2);
         filePanel2.add(fileLabel2);
@@ -76,20 +78,20 @@ public class SwingThreePanelDemo extends JFrame {
 
         // 区域3：执行按钮
         JPanel panel3 = new JPanel();
-        panel3.setBorder(new TitledBorder("执行操作"));
+        panel3.setBorder(new TitledBorder(messages.getString("execute.panel.title")));
         panel3.setLayout(new FlowLayout(FlowLayout.LEFT));
-        execButton = new JButton("执行");
-        statusLabel = new JLabel("等待操作");
+        execButton = new JButton(messages.getString("button.execute"));
+        statusLabel = new JLabel(messages.getString("status.waiting"));
         execButton.addActionListener(this::onExecute);
 
         JPanel inputPanel1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel label1 = new JLabel("服务器路径:");
+        JLabel label1 = new JLabel(messages.getString("label.server.path"));
         textField1 = new JTextField(20); // 文本框宽度为20
         inputPanel1.add(label1);
         inputPanel1.add(textField1);
         // 输入框2
         JPanel inputPanel2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel label2 = new JLabel("版本差分名:");
+        JLabel label2 = new JLabel(messages.getString("label.diff.name"));
         textField2 = new JTextField(20); // 文本框宽度为20
         inputPanel2.add(label2);
         inputPanel2.add(textField2);
@@ -103,22 +105,15 @@ public class SwingThreePanelDemo extends JFrame {
 
         // 区域4：文本显示区域
         JPanel panel4 = new JPanel();
-        panel4.setBorder(new TitledBorder("使用说明"));
+        panel4.setBorder(new TitledBorder(messages.getString("usage.instructions")));
         panel4.setLayout(new BorderLayout());
 
         infoTextArea = new JTextArea(5, 40); // 高度为5行，宽度为40字符
         infoTextArea.setEditable(false); // 禁止编辑
         scrollPane = new JScrollPane(infoTextArea);
 
-        infoTextArea.append("1.选择存放要生成的sh文件路径\n");
-        infoTextArea.append("2.选择前一个版本用的repo配置文件和后一个版本用的repo配置文件\n");
-        infoTextArea.append("3.输入linux要下载patch的路径，例如/home/temp\n");
-        infoTextArea.append("4.差分版本信息，例如CS1_CS2\n");
-        infoTextArea.append("5.点击执行，等待完成后到选择的文件夹下，将生成的sh文件拷贝到linux服务器对应的路径下执行即可\n");
-        infoTextArea.append("\n*注意*\n");
-        infoTextArea.append("由于工具不完善，做如下准备：\n");
-        infoTextArea.append("1.为防止出现异常，建议修改新旧repo配置文件的文件名，\n   例子：AU_LINUX_ANDROID_LA.AU.1.4.5.R1.10.00.00.999.028.xml改为LA.AU.1.4.5.R1-028-gen3meta.0.xml\n");
-        infoTextArea.append("2.修改后的新旧repo配置文件放入【选择存放要生成的sh文件路径】中\n");
+        infoTextArea.append(messages.getString("info.text"));
+
         panel4.add(scrollPane, BorderLayout.CENTER);
 
 
@@ -167,7 +162,7 @@ public class SwingThreePanelDemo extends JFrame {
             showInfoDialog(true);
         } else {
             execButton.setEnabled(false);
-            statusLabel.setText("执行中...");
+            statusLabel.setText(messages.getString("status.working"));
 
 
             inputParam1 = textField1.getText(); // 获取参数1的值
@@ -193,7 +188,7 @@ public class SwingThreePanelDemo extends JFrame {
 
                 @Override
                 protected void done() {
-                    statusLabel.setText("执行完成！");
+                    statusLabel.setText(messages.getString("status.finished"));
                     execButton.setEnabled(true);
                 }
             }.execute();
@@ -215,18 +210,21 @@ public class SwingThreePanelDemo extends JFrame {
 
     // 信息提示框实现
     private void showInfoDialog(boolean isAnyEmpty) {
-        JDialog dialog = new JDialog(this, "提示", true);
+        JDialog dialog = new JDialog(this, messages.getString("dialog.title"), true);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setSize(350, 150);
         dialog.setLocationRelativeTo(this);
         dialog.setLayout(new BorderLayout());
 
-        JLabel msgLabel = new JLabel(isAnyEmpty ? "请设置参数！" : "已执行完成，是否打开文件夹？", SwingConstants.CENTER);
+        JLabel msgLabel = new JLabel(isAnyEmpty ?
+                messages.getString("prompt.empty.params") :
+                messages.getString("prompt.execution.done"),
+                SwingConstants.CENTER);
         msgLabel.setFont(msgLabel.getFont().deriveFont(Font.PLAIN, 18f));
         dialog.add(msgLabel, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel();
-        JButton okBtn = new JButton("确定");
+        JButton okBtn = new JButton(messages.getString("dialog.button.title"));
         btnPanel.add(okBtn);
         dialog.add(btnPanel, BorderLayout.SOUTH);
 
@@ -236,7 +234,7 @@ public class SwingThreePanelDemo extends JFrame {
                 try {
                     Desktop.getDesktop().open(new File(folderPath));
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "无法打开文件夹:\n" + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "无法打开文件夹:\\n" + ex.getMessage());
                 }
             }
         });
