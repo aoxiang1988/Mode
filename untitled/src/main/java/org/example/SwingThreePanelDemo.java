@@ -35,7 +35,7 @@ public class SwingThreePanelDemo extends JFrame {
     public SwingThreePanelDemo() {
         setTitle(messages.getString("title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1500, 700); // 固定大小为500*300
+        setSize(1500, 800); // 固定大小为500*300
         setLocationRelativeTo(null);
         setResizable(false); // 禁止缩放
 
@@ -245,7 +245,7 @@ public class SwingThreePanelDemo extends JFrame {
 
     public static void main(String[] args) {
         mInputUtils = new DiffFileCheckerUtils();
-        setUIFont(new Font("Dialog", Font.PLAIN, 20)); // 设置全局字体为20号
+        setUIFont(new Font("Dialog", Font.PLAIN, 25)); // 设置全局字体为20号
         SwingUtilities.invokeLater(() -> {
             SwingThreePanelDemo frame = new SwingThreePanelDemo();
             frame.setVisible(true);
