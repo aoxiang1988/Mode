@@ -92,13 +92,7 @@ public class IndicatorPanel extends JPanel
                 }
             }
         });
-        addMouseWheelListener(new MouseWheelListener()
-        {
-            public void mouseWheelMoved(MouseWheelEvent e)
-            {
-                m_LogFilterMain.m_scrollVBar.dispatchEvent(e);
-            }
-        });
+        addMouseWheelListener(e -> m_LogFilterMain.m_scrollVBar.dispatchEvent(e));
     }
     
     public void testMsg(String strMsg)
@@ -143,7 +137,7 @@ public class IndicatorPanel extends JPanel
                 if(m_LogFilterMain.m_nChangedFilter == LogFilterMain.STATUS_CHANGE || m_LogFilterMain.m_nChangedFilter == LogFilterMain.STATUS_PARSING)
                     break;
                 int nY1 = (int)(INDICATRO_Y_POS + m_hmBookmark.get(nIndex) * fRate);
-                int nY2 = (int)(nY1 + HEIGHT);
+                int nY2 = nY1 + HEIGHT;
                 if(nY2 - nY1 <= 0)
                     nY2 = nY1 + MIN_HEIGHT;
                 if(nY2 > m_rcBookmark.y + m_rcBookmark.height)
@@ -159,7 +153,7 @@ public class IndicatorPanel extends JPanel
                 if(m_LogFilterMain.m_nChangedFilter == LogFilterMain.STATUS_CHANGE || m_LogFilterMain.m_nChangedFilter == LogFilterMain.STATUS_PARSING)
                     break;
                 int nY1 = (int)(INDICATRO_Y_POS + m_hmError.get(nIndex) * fRate);
-                int nY2 = (int)(nY1 + HEIGHT);
+                int nY2 = nY1 + HEIGHT;
                 if(nY2 - nY1 <= 0)
                     nY2 = nY1 + MIN_HEIGHT;
                 if(nY2 > m_rcError.y + m_rcError.height)
@@ -192,7 +186,7 @@ public class IndicatorPanel extends JPanel
 
         if(TOTAL_COUNT > 0)
         {
-            JViewport viewport = (JViewport)m_LogFilterMain.m_scrollVBar.getViewport();
+            JViewport viewport = m_LogFilterMain.m_scrollVBar.getViewport();
             Rectangle viewRect = viewport.getViewRect();
             
             int nItemHeight = m_LogFilterMain.m_tbLogTable.getRowHeight();

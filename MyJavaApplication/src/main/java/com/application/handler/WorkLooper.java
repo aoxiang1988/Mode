@@ -2,12 +2,13 @@ package com.application.handler;
 
 import com.application.Log;
 
+@SuppressWarnings("ALL")
 public class WorkLooper {
 
     public static MessageQueue mMessageQueue;
     private static WorkLooper mWorkLooper;
     private Thread mLooperThread = null;
-    private static String TAG = "WorkLooper";
+    private static final String TAG = "WorkLooper";
 
     public static void getInstance(Handler handler) {
         if (mWorkLooper == null) {

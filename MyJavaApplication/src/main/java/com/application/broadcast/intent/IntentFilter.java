@@ -3,6 +3,7 @@ package com.application.broadcast.intent;
 
 import com.application.WorkUtils;
 
+@SuppressWarnings("ALL")
 public class IntentFilter {
 
     private WorkUtils.QueueUtils mQueueUtils;

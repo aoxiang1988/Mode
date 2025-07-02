@@ -11,7 +11,7 @@ public class ClassTaster
     {
         try
         {
-            Method      method      = null;
+            Method      method;
 
             //테스트 값을 받은경우
             if ( params.length > 0 )
@@ -25,12 +25,20 @@ public class ClassTaster
             else
             {
                 method = getMethod( cls, strMethod );
-                Class<?>[] arParams = method.getParameterTypes();
-                Object[] arValues = new Object[arParams.length];
-                
-                for(int iIndex = 0; iIndex < arParams.length; iIndex++)
-                {
-                    arValues[iIndex] = getDefaultValue( arParams[iIndex] );
+                Class<?>[] arParams = null;
+                if (method != null) {
+                    arParams = method.getParameterTypes();
+                }
+                Object[] arValues = null;
+                if (arParams != null) {
+                    arValues = new Object[arParams.length];
+                }
+
+                if (arParams != null) {
+                    for(int iIndex = 0; iIndex < arParams.length; iIndex++)
+                    {
+                        arValues[iIndex] = getDefaultValue( arParams[iIndex] );
+                    }
                 }
                 for(int iIndex = 0; iIndex < arParams.length; iIndex++)
                 {
@@ -41,7 +49,9 @@ public class ClassTaster
                     }
                     else
                     {
-                        disply(method, arValues, "user param");
+                        if (method != null) {
+                            disply(method, arValues, "user param");
+                        }
                         Object result = method.invoke( cls.newInstance(), arValues );
                         System.out.print("result = " + result);
                         System.out.print("\n");
@@ -54,7 +64,7 @@ public class ClassTaster
         {
             System.out.print("e = " + e);
             System.out.print("\n");
-            e.printStackTrace();
+            System.out.print("error");
             System.out.print("\n");
         }
     }
@@ -81,28 +91,15 @@ public class ClassTaster
         try
         {
             Method[] checkMethod = ICheckValue.class.getMethods();
-            for(int iIndex = 0; iIndex < checkMethod.length; iIndex++)
-            {
-                arValues[iPosition] = checkMethod[iIndex].invoke(checkType);
-                disply(method, arValues, checkMethod[iIndex].getName());
-                Object result = method.invoke( cls.newInstance(), arValues );
+            for (Method value : checkMethod) {
+                arValues[iPosition] = value.invoke(checkType);
+                disply(method, arValues, value.getName());
+                Object result = method.invoke(cls.newInstance(), arValues);
                 System.out.print("result = " + result);
                 System.out.print("\n");
             }
         }
-        catch ( IllegalArgumentException e )
-        {
-            e.printStackTrace();
-        }
-        catch ( IllegalAccessException e )
-        {
-            e.printStackTrace();
-        }
-        catch ( InvocationTargetException e )
-        {
-            e.printStackTrace();
-        }
-        catch ( InstantiationException e )
+        catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | InstantiationException e )
         {
             e.printStackTrace();
         }
@@ -110,7 +107,7 @@ public class ClassTaster
     
     public static Object getDefaultValue(Class<?> cls)
     {
-        Object param = null;
+        Object param;
         try
         {
             param = createParam(cls);
@@ -120,40 +117,46 @@ public class ClassTaster
             }
             return cls.newInstance();
         }
-        catch ( IllegalAccessException e )
+        catch (IllegalAccessException | InstantiationException e )
         {
             e.printStackTrace();
         }
-        catch ( InstantiationException e )
-        {
-            e.printStackTrace();
-        }
-        
+
         return null;
     }
 
     public static Object createParam(Class<?> cls)
     {
-        if(cls.getName().equals("java.lang.String"))
-            return new CheckString();
-        if(cls.getName().equals("java.lang.Byte") || cls.getName().equals("byte"))
-            return new CheckByte();
-        else if(cls.getName().equals("java.lang.Short") || cls.getName().equals("short"))
-            return new CheckShort();
-        else if(cls.getName().equals("java.lang.Long") || cls.getName().equals("long"))
-            return new CheckLong();
-        else if(cls.getName().equals("java.lang.Integer") || cls.getName().equals("int"))
-            return new CheckInteger();
-        else if(cls.getName().equals("java.lang.Float") || cls.getName().equals("float"))
-            return new CheckFloat();
-        else if(cls.getName().equals("java.lang.Double") || cls.getName().equals("double"))
-            return new CheckDouble();
-        else if(cls.getName().equals("java.lang.Booleane") || cls.getName().equals("boolean"))
-            return new CheckBoolean();
-        else if(cls.getName().equals("java.lang.Character") || cls.getName().equals("char"))
-            return new CheckCharacter();
-        else
-            return cls;
+        switch (cls.getName()) {
+            case "java.lang.String":
+                return new CheckString();
+            case "java.lang.Byte":
+            case "byte":
+                return new CheckByte();
+            case "java.lang.Short":
+            case "short":
+                return new CheckShort();
+            case "java.lang.Long":
+            case "long":
+                return new CheckLong();
+            case "java.lang.Integer":
+            case "int":
+                return new CheckInteger();
+            case "java.lang.Float":
+            case "float":
+                return new CheckFloat();
+            case "java.lang.Double":
+            case "double":
+                return new CheckDouble();
+            case "java.lang.Booleane":
+            case "boolean":
+                return new CheckBoolean();
+            case "java.lang.Character":
+            case "char":
+                return new CheckCharacter();
+            default:
+                return cls;
+        }
     }
     
     public static Method getMethod(Class<?> cls, String strMethod)
@@ -253,9 +256,9 @@ class CheckCharacter implements ICheckValue
 
 interface ICheckValue
 {
-    public Object getMaxValue();
-    public Object getMiddleValue();
-    public Object getMinValue();
-    public Object getNull();
-    public Object getRandom();
+    Object getMaxValue();
+    Object getMiddleValue();
+    Object getMinValue();
+    Object getNull();
+    Object getRandom();
 }

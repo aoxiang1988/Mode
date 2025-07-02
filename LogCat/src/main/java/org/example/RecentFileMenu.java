@@ -32,6 +32,7 @@ import javax.swing.JMenuItem;
  * Saves entries in a file called "[user.dir]/[name passed to constructor].recent".
  * @author Hugues Johnson
  */
+@SuppressWarnings("ALL")
 public abstract class RecentFileMenu extends JMenu{
 	private String pathToSavedFile; //where to save the items in this menu
 	private int itemCount; //how many items in the menu
@@ -120,11 +121,7 @@ public abstract class RecentFileMenu extends JMenu{
 				menuItem.setVisible(true);
 				menuItem.setToolTipText(this.recentEntries[index]);
 				menuItem.setActionCommand(this.recentEntries[index]);
-				menuItem.addActionListener(new ActionListener(){
-		            public void actionPerformed(ActionEvent actionEvent){
-		                onSelectFile(actionEvent.getActionCommand());
-		            }
-		        });
+				menuItem.addActionListener(actionEvent -> onSelectFile(actionEvent.getActionCommand()));
 	        }
         	this.add(menuItem);
         }

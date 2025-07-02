@@ -38,11 +38,9 @@ public class Test {
                     wait(30*1000);
                     connectToNet();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.out.print("wait error!");
                 }
             }
         }
-
-        return;
     }
 }

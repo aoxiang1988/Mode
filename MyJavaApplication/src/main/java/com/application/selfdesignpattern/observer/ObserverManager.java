@@ -14,7 +14,7 @@ public class ObserverManager implements SubjectInterface{
         }
 
         if(mObserverList == null)
-            mObserverList = new ArrayList<ObserverInterface>();
+            mObserverList = new ArrayList<>();
 
         return mObserverManager;
     }
@@ -33,7 +33,6 @@ public class ObserverManager implements SubjectInterface{
 
     @Override
     public void remove(ObserverInterface observer) {
-        if(mObserverList.contains(observer))
-            mObserverList.remove(observer);
+        mObserverList.remove(observer);
     }
 }

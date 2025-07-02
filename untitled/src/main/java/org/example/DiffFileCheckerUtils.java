@@ -6,6 +6,7 @@ import org.example.difffilecheck.TagInfoListUtil;
 import java.io.*;
 import java.util.*;
 
+@SuppressWarnings("ALL")
 public class DiffFileCheckerUtils {
 
     private static Map<String, String> mDiffCmdNameMap;
@@ -22,7 +23,7 @@ public class DiffFileCheckerUtils {
 
     public String putFilePath() {
 
-        ArrayList<String> a = new ArrayList<String>();
+        ArrayList<String> a = new ArrayList<>();
         Scanner scan = new Scanner(System.in);
         String l = scan.nextLine();
         Scanner scan_l = new Scanner(l);
@@ -182,8 +183,8 @@ public class DiffFileCheckerUtils {
         //System.out.print("please input path of cmd file where you want to store (like G:\\):> ");
         //String patchCmdFile = mInputUtils.putFilePath();
 
-        for (int n = 0; n<diffFileList.size(); n++) {
-            buildCmdFile (diffFileList.get(n), diffFilePath);
+        for (String s : diffFileList) {
+            buildCmdFile(s, diffFilePath);
         }
     }
 
@@ -220,8 +221,8 @@ public class DiffFileCheckerUtils {
         //System.out.print("please input path of cmd file where you want to store (like G:\\):> ");
         //String patchCmdFile = mInputUtils.putFilePath();
 
-        for (int n = 0; n<diffFileList.size(); n++) {
-            buildCmdFile (diffFileList.get(n), diffFilePath);
+        for (String s : diffFileList) {
+            buildCmdFile(s, diffFilePath);
         }
     }
 

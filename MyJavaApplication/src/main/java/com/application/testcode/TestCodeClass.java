@@ -10,7 +10,7 @@ public class TestCodeClass {
     public static String validIPAddress(String IP) {
         String mResult = NEITHER;
         if(IP.contains(".")) { // IPV4
-            String[] ipCode = IP.split(".");
+            String[] ipCode = IP.split("\\.");
             for(String key : ipCode) {
                 if(key.startsWith("0") && key.length() > 1) {
                     mResult = NEITHER;
@@ -19,9 +19,8 @@ public class TestCodeClass {
                     char[] t = key.toCharArray();
                 }
             }
-        } else if(IP.contains(":")) { // IPV6
+        }  // IPV6
 
-        }
         return mResult;
     }
 }

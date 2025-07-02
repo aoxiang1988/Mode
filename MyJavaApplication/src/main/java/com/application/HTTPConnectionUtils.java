@@ -56,7 +56,7 @@ public class HTTPConnectionUtils {
                 Log.w(TAG, "Connect response code : " + errorCode);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Connect response error");
         } finally {
             try {
                 assert inputStream != null;
@@ -64,7 +64,7 @@ public class HTTPConnectionUtils {
                 assert bufferedReader != null;
                 bufferedReader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Connect response stream read error");
             }
             mHttpConnection.disconnect();
         }

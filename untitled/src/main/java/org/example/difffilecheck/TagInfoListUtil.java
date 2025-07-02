@@ -42,7 +42,7 @@ public class TagInfoListUtil {
         //mPatchFileName = firstName + "_" + lastName;
         //System.out.println(mPatchFileName);
 
-        String line = null;
+        String line;
         while ((line = br.readLine()) != null) {
             if (line.contains("remote fetch")) {
                 String[] lineInfo = new String[line.split("").length];

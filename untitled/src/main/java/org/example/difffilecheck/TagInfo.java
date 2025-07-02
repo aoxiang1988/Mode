@@ -52,20 +52,18 @@ public class TagInfo {
     }
 
     public String getResultFileName () {
-        String resultName = null;
+        String resultName;
         resultName = "result_" + mProjectPath.replace("/", "_") + ".txt";
         return resultName;
     }
 
     public String getModelName () {
-        String modelName = null;
-        modelName = mProjectPath.replace("/", "_");
+        String modelName = mProjectPath.replace("/", "_");
         return modelName;
     }
 
     public String getPatchFileName () {
-        String resultName = null;
-        resultName = mProjectPath.replace("/", "_") + "_patches_file.patch";
+        String resultName = mProjectPath.replace("/", "_") + "_patches_file.patch";
         return resultName;
     }
 }

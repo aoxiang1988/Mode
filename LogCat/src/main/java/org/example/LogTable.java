@@ -85,7 +85,7 @@ public class LogTable extends JTable implements FocusListener, ActionListener
     }
 
     private void init() {
-        KeyStroke copy = KeyStroke.getKeyStroke(KeyEvent.VK_C,ActionEvent.CTRL_MASK,false);
+        KeyStroke copy = KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK,false);
         registerKeyboardAction(this,"Copy",copy,JComponent.WHEN_FOCUSED);
 
         addFocusListener( this );
@@ -127,12 +127,12 @@ public class LogTable extends JTable implements FocusListener, ActionListener
                         if(colum == LogFilterTableModel.COMUMN_TAG)
                         {
                             LogInfo logInfo = ((LogFilterTableModel)getModel()).getRow(row);
-                            if(m_strTagShow.contains("|" + (String)logInfo.getData(colum)))
-                                m_strTagShow = m_strTagShow.replace("|" + (String)logInfo.getData(colum), "");
+                            if(m_strTagShow.contains("|" + logInfo.getData(colum)))
+                                m_strTagShow = m_strTagShow.replace("|" + logInfo.getData(colum), "");
                             else if(m_strTagShow.contains((String)logInfo.getData(colum)))
                                 m_strTagShow = m_strTagShow.replace((String)logInfo.getData(colum), "");
                             else
-                                m_strTagShow += "|" + (String)logInfo.getData(colum);
+                                m_strTagShow += "|" + logInfo.getData(colum);
                             m_LogFilterMain.notiEvent(new INotiEvent.EventParam(INotiEvent.EVENT_CHANGE_FILTER_SHOW_TAG));
                         }
                     }
@@ -147,7 +147,7 @@ public class LogTable extends JTable implements FocusListener, ActionListener
                         {
                             T.d();
                             LogInfo logInfo = ((LogFilterTableModel)getModel()).getRow(row);
-                            m_strTagRemove += "|" + (String)logInfo.getData(colum);
+                            m_strTagRemove += "|" + logInfo.getData(colum);
                             m_LogFilterMain.notiEvent(new INotiEvent.EventParam(INotiEvent.EVENT_CHANGE_FILTER_REMOVE_TAG));
                         }
                     }
@@ -355,16 +355,16 @@ public class LogTable extends JTable implements FocusListener, ActionListener
         int width = 0;
 
         // Get width of column header
-        TableCellRenderer renderer = col.getHeaderRenderer();
-        if (renderer == null) {
-            renderer = getTableHeader().getDefaultRenderer();
-        }
+        TableCellRenderer renderer;
+//       if (renderer == null) {
+//           renderer = getTableHeader().getDefaultRenderer();
+//       }
         Component comp;
 //        Component comp = renderer.getTableCellRendererComponent(
 //            this, col.getHeaderValue(), false, false, 0, 0);
 //        width = comp.getPreferredSize().width;
 
-        JViewport viewport = (JViewport)m_LogFilterMain.m_scrollVBar.getViewport();
+        JViewport viewport = m_LogFilterMain.m_scrollVBar.getViewport();
         Rectangle viewRect = viewport.getViewRect();
         int nFirst = m_LogFilterMain.m_tbLogTable.rowAtPoint(new Point(0, viewRect.y));
         int nLast = m_LogFilterMain.m_tbLogTable.rowAtPoint(new Point(0, viewRect.height - 1));
@@ -606,7 +606,7 @@ public class LogTable extends JTable implements FocusListener, ActionListener
 
         Rectangle rList = getVisibleRect();
         Rectangle rCell = getCellRect(row, 0, true);
-        if(rList != null && rCell != null)
+        if(rList != null)
         {
             Rectangle scrollToRect = new Rectangle((int)rList.getX(), (int)rCell.getY(), (int)(rList.getWidth()), (int)rCell.getHeight());
             scrollRectToVisible(scrollToRect);
@@ -618,7 +618,7 @@ public class LogTable extends JTable implements FocusListener, ActionListener
         int nLastSelectedIndex = getSelectedRow();
 
         changeSelection(row, 0, false, false);
-        int nVisible = row;
+        int nVisible;
         if(nLastSelectedIndex <= row || nLastSelectedIndex == -1)
             nVisible = row + getVisibleRowCount() / 2;
         else
@@ -662,8 +662,8 @@ public class LogTable extends JTable implements FocusListener, ActionListener
     @Override
     public void actionPerformed( ActionEvent arg0 )
     {
-        Clipboard system = Toolkit.getDefaultToolkit().getSystemClipboard();;
-        StringBuffer sbf = new StringBuffer();
+        Clipboard system;
+        StringBuilder sbf = new StringBuilder();
         int numrows = getSelectedRowCount();
         int[] rowsselected = getSelectedRows();
 //        if ( !( ( numrows - 1 == rowsselected[rowsselected.length - 1] - rowsselected[0] && numrows == rowsselected.length )
@@ -679,7 +679,7 @@ public class LogTable extends JTable implements FocusListener, ActionListener
             {
                 if(!(j == LogFilterTableModel.COMUMN_LINE) && m_arbShow[j])
                 {
-                    StringBuffer strTemp = new StringBuffer((String)getValueAt( rowsselected[i], j ));
+                    StringBuilder strTemp = new StringBuilder((String)getValueAt( rowsselected[i], j ));
                     if(j == LogFilterTableModel.COMUMN_TAG)
                     {
                         String strTag = strTemp.toString();

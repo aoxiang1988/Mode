@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
+@SuppressWarnings("ALL")
 public class SwingThreePanelDemo extends JFrame {
 
     private String folderPath = "";

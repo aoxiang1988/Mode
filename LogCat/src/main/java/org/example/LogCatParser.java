@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 /**
  * 
  */
+@SuppressWarnings("ALL")
 public class LogCatParser implements ILogParser
 {
     final String TOKEN_KERNEL= "<>[]";
@@ -21,46 +22,61 @@ public class LogCatParser implements ILogParser
     
     public Color getColor(LogInfo logInfo)
     {
-        if(logInfo.m_strLogLV == null) return Color.BLACK;
-        
-        if(logInfo.m_strLogLV.equals("FATAL") || logInfo.m_strLogLV.equals("F"))
-            return new Color(LogColor.COLOR_FATAL);
-        if(logInfo.m_strLogLV.equals("ERROR") || logInfo.m_strLogLV.equals("E") || logInfo.m_strLogLV.equals("3"))
-            return new Color(LogColor.COLOR_ERROR);
-        else if(logInfo.m_strLogLV.equals("WARN") || logInfo.m_strLogLV.equals("W") || logInfo.m_strLogLV.equals("4"))
-            return new Color(LogColor.COLOR_WARN);
-        else if(logInfo.m_strLogLV.equals("INFO") || logInfo.m_strLogLV.equals("I") || logInfo.m_strLogLV.equals("6"))
-            return new Color(LogColor.COLOR_INFO);
-        else if(logInfo.m_strLogLV.equals("DEBUG") || logInfo.m_strLogLV.equals("D") || logInfo.m_strLogLV.equals("7"))
-            return new Color(LogColor.COLOR_DEBUG);
-        else if(logInfo.m_strLogLV.equals("0"))
-            return new Color(LogColor.COLOR_0);
-        else if(logInfo.m_strLogLV.equals("1"))
-            return new Color(LogColor.COLOR_1);
-        else if(logInfo.m_strLogLV.equals("2"))
-            return new Color(LogColor.COLOR_2);
-        else if(logInfo.m_strLogLV.equals("5"))
-            return new Color(LogColor.COLOR_5);
-        else
-            return Color.BLACK;
+        switch (logInfo.m_strLogLV) {
+            case "FATAL":
+            case "F":
+                return new Color(LogColor.COLOR_FATAL);
+            case "ERROR":
+            case "E":
+            case "3":
+                return new Color(LogColor.COLOR_ERROR);
+            case "WARN":
+            case "W":
+            case "4":
+                return new Color(LogColor.COLOR_WARN);
+            case "INFO":
+            case "I":
+            case "6":
+                return new Color(LogColor.COLOR_INFO);
+            case "DEBUG":
+            case "D":
+            case "7":
+                return new Color(LogColor.COLOR_DEBUG);
+            case "0":
+                return new Color(LogColor.COLOR_0);
+            case "1":
+                return new Color(LogColor.COLOR_1);
+            case "2":
+                return new Color(LogColor.COLOR_2);
+            case "5":
+                return new Color(LogColor.COLOR_5);
+            default:
+                return Color.BLACK;
+
+        }
     }
 
     public int getLogLV(LogInfo logInfo)
     {
-        if(logInfo.m_strLogLV == null) return LogInfo.LOG_LV_VERBOSE;
-        
-        if(logInfo.m_strLogLV.equals("FATAL") || logInfo.m_strLogLV.equals("F"))
-            return LogInfo.LOG_LV_FATAL;
-        if(logInfo.m_strLogLV.equals("ERROR") || logInfo.m_strLogLV.equals("E"))
-            return LogInfo.LOG_LV_ERROR;
-        else if(logInfo.m_strLogLV.equals("WARN") || logInfo.m_strLogLV.equals("W"))
-            return LogInfo.LOG_LV_WARN;
-        else if(logInfo.m_strLogLV.equals("INFO") || logInfo.m_strLogLV.equals("I"))
-            return LogInfo.LOG_LV_INFO;
-        else if(logInfo.m_strLogLV.equals("DEBUG") || logInfo.m_strLogLV.equals("D"))
-            return LogInfo.LOG_LV_DEBUG;
-        else
-            return LogInfo.LOG_LV_VERBOSE;
+        switch (logInfo.m_strLogLV) {
+            case "FATAL":
+            case "F":
+                return LogInfo.LOG_LV_FATAL;
+            case "ERROR":
+            case "E":
+                return LogInfo.LOG_LV_ERROR;
+            case "WARN":
+            case "W":
+                return LogInfo.LOG_LV_WARN;
+            case "INFO":
+            case "I":
+                return LogInfo.LOG_LV_INFO;
+            case "DEBUG":
+            case "D":
+                return LogInfo.LOG_LV_DEBUG;
+            default:
+                return LogInfo.LOG_LV_VERBOSE;
+        }
     }
     
 //04-17 09:01:18.910 D/LightsService(  139): BKL : 106
@@ -68,7 +84,7 @@ public class LogCatParser implements ILogParser
     {
         if(strText.length() < 22) return false;
 
-        String strLevel = (String)strText.substring(19, 21);
+        String strLevel = strText.substring(19, 21);
         if(strLevel.equals("D/")
                 || strLevel.equals("V/")
                 || strLevel.equals("I/")
@@ -85,7 +101,7 @@ public class LogCatParser implements ILogParser
     {
         if(strText.length() < 34) return false;
 
-        String strLevel = (String)strText.substring(31, 33);
+        String strLevel = strText.substring(31, 33);
         if(strLevel.equals("D ")
                 || strLevel.equals("V ")
                 || strLevel.equals("I ")
@@ -102,7 +118,7 @@ public class LogCatParser implements ILogParser
     {
         if(strText.length() < 18) return false;
 
-        String strLevel = (String)strText.substring(1, 2);
+        String strLevel = strText.substring(1, 2);
         if(strLevel.equals("0")
                 || strLevel.equals("1")
                 || strLevel.equals("2")

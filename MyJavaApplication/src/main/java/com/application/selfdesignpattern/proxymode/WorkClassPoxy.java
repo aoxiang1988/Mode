@@ -1,5 +1,6 @@
 package com.application.selfdesignpattern.proxymode;
 
+@SuppressWarnings("ALL")
 public class WorkClassPoxy implements BaseFunctionInterface {
 
     private WorkClass mWorkClass;

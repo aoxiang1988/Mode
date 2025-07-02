@@ -111,9 +111,9 @@ public class TagTable extends JTable
 
         // Get width of column header
         TableCellRenderer renderer = col.getHeaderRenderer();
-        if (renderer == null) {
-            renderer = getTableHeader().getDefaultRenderer();
-        }
+//       if (renderer == null) {
+//           renderer = getTableHeader().getDefaultRenderer();
+//       }
 //        Component comp;
 //        Component comp = renderer.getTableCellRendererComponent(
 //            this, col.getHeaderValue(), false, false, 0, 0);
@@ -141,7 +141,7 @@ public class TagTable extends JTable
         col.setPreferredWidth(width);
     }
 
-    public class TagCellRenderer extends DefaultTableCellRenderer
+    public static class TagCellRenderer extends DefaultTableCellRenderer
     {
         private static final long serialVersionUID = 1L;
         boolean m_bChanged;

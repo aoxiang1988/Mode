@@ -20,15 +20,13 @@ public class Receiver {
             throw new IllegalArgumentException("Receiver and filter cannot be null.");
         }
 
-        if (mCurrentReceiver != null && mCurrentReceiver.equals(receiver)) {
+        if (mCurrentReceiver != null) {
             Log.w(TAG, "Warning: This receiver is already registered.");
             return;
         }
 
         // 初始化 mCurrentReceiver 数组
-        if (mCurrentReceiver == null) {
-            mCurrentReceiver = new BroadCastReceiver[MAX_RECEIVERS];
-        }
+        mCurrentReceiver = new BroadCastReceiver[MAX_RECEIVERS];
 
         mCurrentFilter = filter;
 
@@ -130,8 +128,7 @@ public class Receiver {
                 return;
             }
 
-            for (int i = 0; i < receivers.length; i++) {
-                BroadCastReceiver receiver = receivers[i];
+            for (BroadCastReceiver receiver : receivers) {
                 if (receiver == null) {
                     // Log.e("Broadcast", "Receiver at index " + i + " is null");
                     continue;

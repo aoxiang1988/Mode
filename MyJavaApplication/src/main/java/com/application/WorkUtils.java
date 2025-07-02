@@ -3,6 +3,7 @@ package com.application;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("ALL")
 public class WorkUtils {
     private static String TAG = "WorkUtils";
     static void linkStack() {

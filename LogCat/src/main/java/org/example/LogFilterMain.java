@@ -73,6 +73,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+@SuppressWarnings("ALL")
 public class LogFilterMain extends JFrame implements INotiEvent
 {
     private static final long serialVersionUID           = 1L;
@@ -1037,9 +1038,8 @@ public class LogFilterMain extends JFrame implements INotiEvent
         m_jcFontType = new JComboBox();
         String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         m_jcFontType.addItem("Dialog");
-        for ( int i = 0; i < fonts.length; i++ )
-        {
-            m_jcFontType.addItem(fonts[i]);
+        for (String font : fonts) {
+            m_jcFontType.addItem(font);
         }
         m_jcFontType.addActionListener(m_alButtonListener);
 

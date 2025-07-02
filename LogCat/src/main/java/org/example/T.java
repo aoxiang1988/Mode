@@ -150,7 +150,7 @@ public class T
     {
         long time = System.currentTimeMillis(); 
 
-        SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss.SSS");
+        SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
         return dayTime.format(new Date(time));
 
