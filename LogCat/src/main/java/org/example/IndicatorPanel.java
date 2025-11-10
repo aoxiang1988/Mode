@@ -131,7 +131,7 @@ public class IndicatorPanel extends JPanel
             if(m_rcBookmark.height > TOTAL_COUNT)
                 HEIGHT = m_rcBookmark.height / TOTAL_COUNT + 1;
 
-            //ºÏ¸¶Å© indicator¸¦ ±×¸°´Ù.
+            //åˆä»˜å†œ indicatorç”« å¼Šèµ´ä¿ƒ.
             for( Integer nIndex : m_hmBookmark.keySet())
             {
                 if(m_LogFilterMain.m_nChangedFilter == LogFilterMain.STATUS_CHANGE || m_LogFilterMain.m_nChangedFilter == LogFilterMain.STATUS_PARSING)
@@ -147,7 +147,7 @@ public class IndicatorPanel extends JPanel
             }
 
 
-            //¿¡·¯ indicator¸¦ ±×¸°´Ù.
+            //ä¿ŠçŸ¾ indicatorç”« å¼Šèµ´ä¿ƒ.
             for( Integer nIndex : m_hmError.keySet())
             {
                 if(m_LogFilterMain.m_nChangedFilter == LogFilterMain.STATUS_CHANGE || m_LogFilterMain.m_nChangedFilter == LogFilterMain.STATUS_PARSING)

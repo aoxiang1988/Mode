@@ -192,7 +192,14 @@ public class LogFilterMain extends JFrame implements INotiEvent
     Thread                    m_thProcess;
     Thread                    m_thWatchFile;
     Thread                    m_thFilterParse;
+    Thread                    m_thAutoSave;  // æ–°å¢žè‡ªåŠ¨ä¿å­˜çº¿ç¨‹
     boolean                   m_bPauseADB;
+    
+    // è‡ªåŠ¨ä¿å­˜ç›¸å…³å¸¸é‡å’Œå˜é‡
+    static final int          DEFAULT_LOG_THRESHOLD     = 5000;  // é»˜è®¤æ—¥å¿—æ¡æ•°é˜ˆå€¼
+    static final String       DEFAULT_AUTO_SAVE_FOLDER  = "auto_saved_logs";  // è‡ªåŠ¨ä¿å­˜ç›®å½•
+    volatile boolean          m_bAutoSaveRunning        = false;  // è‡ªåŠ¨ä¿å­˜çº¿ç¨‹è¿è¡Œæ ‡å¿—
+    int                       m_nLogThreshold           = DEFAULT_LOG_THRESHOLD;  // æ—¥å¿—é˜ˆå€¼
     
     Object                    FILE_LOCK;
     Object                    FILTER_LOCK;
@@ -351,7 +358,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
         {
             Properties p = new Properties();
             
-            // ini ÆÄÀÏ ÀÐ±â
+            // ini é¢‡è€ ä½¬æ‰
             p.load(new FileInputStream(INI_FILE_CMD));
             
             T.d("p.getProperty(INI_CMD_COUNT) = " + p.getProperty(INI_CMD_COUNT));
@@ -443,10 +450,10 @@ public class LogFilterMain extends JFrame implements INotiEvent
         {
             Properties p = new Properties();
             
-            // ini ÆÄÀÏ ÀÐ±â
+            // ini é¢‡è€ ä½¬æ‰
             p.load(new FileInputStream(INI_FILE));
             
-            // Key °ª ÀÐ±â
+            // Key è”¼ ä½¬æ‰
             String strFontType = p.getProperty(INI_FONT_TYPE);
             if(strFontType != null && strFontType.length() > 0)
                 m_jcFontType.setSelectedItem(p.getProperty(INI_FONT_TYPE));
@@ -519,26 +526,26 @@ public class LogFilterMain extends JFrame implements INotiEvent
     {
         addDesc(VERSION);
         addDesc("");
-        addDesc("°æ±¾1.8:java-jar LogFilter_xxx.jar[filename]Ìí¼Ó");
-        addDesc("½ö½«°æ±¾1.7:copyÊ±ÏÔÊ¾µÄcolumn¸´ÖÆµ½¼ôÌù°å(²»°üÀ¨ÐÐ)");
-        addDesc("Version 1.6:cmd×éºÏ¿ò¹Ì¶¨³¤¶È");
-        addDesc("Ìí¼Ó°æ±¾1.5:Highlight color list()");
-        addDesc("-ÔÚLogFilterColor.iniÖÐ¼ÓÉÏ¼ÆÊýºÍÖµ¼´¿É");
+        addDesc("ç‰ˆæœ¬1.8:java-jar LogFilter_xxx.jar[filename]æ·»åŠ ");
+        addDesc("ä»…å°†ç‰ˆæœ¬1.7:copyæ—¶æ˜¾ç¤ºçš„columnå¤åˆ¶åˆ°å‰ªè´´æ¿(ä¸åŒ…æ‹¬è¡Œ)");
+        addDesc("Version 1.6:cmdç»„åˆæ¡†å›ºå®šé•¿åº¦");
+        addDesc("æ·»åŠ ç‰ˆæœ¬1.5:Highlight color list()");
+        addDesc("-åœ¨LogFilterColor.iniä¸­åŠ ä¸Šè®¡æ•°å’Œå€¼å³å¯");
         addDesc("   - ex)INI_HIGILIGHT_COUNT=2");
         addDesc("   -    INI_COLOR_HIGILIGHT_0=0xFFFF");
         addDesc("   -    INI_COLOR_HIGILIGHT_1=0x00FF");
-        addDesc("Version 1.4:±£´æ´°¿Ú´óÐ¡");
-        addDesc("Ìí¼ÓVersion 1.3:present fileºÍopen²Ëµ¥");
-        addDesc("Ìí¼Ó°æ±¾1.2:TidÉ¸Ñ¡Æ÷");
-        addDesc("°æ±¾1.1:Level FÌí¼Ó");
-        addDesc("Ìí¼Ó°æ±¾1.0:Pid filter");
-        addDesc("Ìí¼Ó°æ±¾0.9:Font type");
-        addDesc("Version 0.8:Ìí¼ÓÉ¸Ñ¡Æ÷¸´Ñ¡¿ò");
-        addDesc("Version 0.7£ºÔÚÄÚºËÈÕÖ¾½âÎö/LogFilter.iniÖÐ¶¨ÒåÑÕÉ«(0~7)");
-        addDesc("Version 0.6:ºöÂÔ¹ýÂËÆ÷´óÐ¡Ð´");
-        addDesc("Version 0.5:Áí´æÎªÃüÁîiniÎÄ¼þ");
-        addDesc("°æ±¾0.4:add thread option£¬±£´æfilter");
-        addDesc("Version 0.3:½â¾öÖÕ¶ËÎ´Ñ¡ÔñµÄÎÊÌâ");
+        addDesc("Version 1.4:ä¿å­˜çª—å£å¤§å°");
+        addDesc("æ·»åŠ Version 1.3:present fileå’Œopenèœå•");
+        addDesc("æ·»åŠ ç‰ˆæœ¬1.2:Tidç­›é€‰å™¨");
+        addDesc("ç‰ˆæœ¬1.1:Level Fæ·»åŠ ");
+        addDesc("æ·»åŠ ç‰ˆæœ¬1.0:Pid filter");
+        addDesc("æ·»åŠ ç‰ˆæœ¬0.9:Font type");
+        addDesc("Version 0.8:æ·»åŠ ç­›é€‰å™¨å¤é€‰æ¡†");
+        addDesc("Version 0.7ï¼šåœ¨å†…æ ¸æ—¥å¿—è§£æž/LogFilter.iniä¸­å®šä¹‰é¢œè‰²(0~7)");
+        addDesc("Version 0.6:å¿½ç•¥è¿‡æ»¤å™¨å¤§å°å†™");
+        addDesc("Version 0.5:å¦å­˜ä¸ºå‘½ä»¤iniæ–‡ä»¶");
+        addDesc("ç‰ˆæœ¬0.4:add thread optionï¼Œä¿å­˜filter");
+        addDesc("Version 0.3:è§£å†³ç»ˆç«¯æœªé€‰æ‹©çš„é—®é¢˜");
         addDesc("");
         addDesc("[Tag]");
         addDesc("Alt+L/R Click : Show/Remove tag");
@@ -557,7 +564,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
     }
 
     /**
-     * @param nIndex    ½ÇÁ¦ ¸®½ºÆ®ÀÇ ÀÎµ¦½º
+     * @param nIndex    è§’åŠ› åºœèƒ¶é£˜ç‹¼ ç‰¢éƒ¸èƒ¶
      * @param nLine     m_strLine
      * @param bBookmark
      */
@@ -1284,11 +1291,11 @@ public class LogFilterMain extends JFrame implements INotiEvent
                 strCommand = (String)m_comboDeviceCmd.getSelectedItem();
             Process oProcess = Runtime.getRuntime().exec(strCommand);
 
-            // ¿ÜºÎ ÇÁ·Î±×·¥ Ãâ·Â ÀÐ±â
+            // å¯‡ä½• æ©‡è‚ºå¼Šä¼ å…ä»¿ ä½¬æ‰
             BufferedReader stdOut   = new BufferedReader(new InputStreamReader(oProcess.getInputStream()));
             BufferedReader stdError = new BufferedReader(new InputStreamReader(oProcess.getErrorStream()));
 
-            // "Ç¥ÁØ Ãâ·Â"°ú "Ç¥ÁØ ¿¡·¯ Ãâ·Â"À» Ãâ·Â
+            // "é’Žéœ– å…ä»¿"è‹ž "é’Žéœ– ä¿ŠçŸ¾ å…ä»¿"é˜‘ å…ä»¿
             while ((s =   stdOut.readLine()) != null)
             {
                 if(!s.equals("List of devices attached "))
@@ -1303,7 +1310,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
                 listModel.addElement(s);
             }
 
-            // ¿ÜºÎ ÇÁ·Î±×·¥ ¹ÝÈ¯°ª Ãâ·Â (ÀÌ ºÎºÐÀº ÇÊ¼ö°¡ ¾Æ´Ô)
+            // å¯‡ä½• æ©‡è‚ºå¼Šä¼ é¦†åˆ¸è”¼ å…ä»¿ (æž ä½•ç›’ç¯® éž˜èå•Š é…’ä¸›)
             System.out.println("Exit Code: " + oProcess.exitValue());
         }
         catch(Exception e)
@@ -1467,14 +1474,22 @@ public class LogFilterMain extends JFrame implements INotiEvent
 
     void stopProcess()
     {
-        setProcessBtn(false);
-        if(m_Process != null) m_Process.destroy();
-        if(m_thProcess != null) m_thProcess.interrupt();
-        if(m_thWatchFile != null) m_thWatchFile.interrupt();
-        m_Process = null;
-        m_thProcess = null;
-        m_thWatchFile = null;
-        m_bPauseADB = false;
+        try
+        {
+            m_bPauseADB = true;
+            stopAutoSaveThread(); // åœæ­¢è‡ªåŠ¨ä¿å­˜çº¿ç¨‹
+            
+            if(m_Process != null)
+            {
+                m_Process.destroy();
+                m_Process = null;
+            }
+            setProcessBtn(false);
+        }
+        catch(Exception e)
+        {
+            T.e("stopProcess e = " + e);
+        }
     }
 
     void startFileParse()
@@ -1618,9 +1633,9 @@ public class LogFilterMain extends JFrame implements INotiEvent
                             try {
                                 FILTER_LOCK.wait();
                             } catch (InterruptedException e) {
-                                // ´¦ÀíÖÐ¶ÏÒì³££¬ÀýÈç¼ÇÂ¼ÈÕÖ¾²¢»Ö¸´ÖÐ¶Ï×´Ì¬
-                                Thread.currentThread().interrupt(); // ÖØÐÂÉèÖÃÖÐ¶Ï±êÖ¾
-                                // ¿ÉÑ¡£º½øÐÐÇåÀí»òÍË³ö²Ù×÷
+                                // å¤„ç†ä¸­æ–­å¼‚å¸¸ï¼Œä¾‹å¦‚è®°å½•æ—¥å¿—å¹¶æ¢å¤ä¸­æ–­çŠ¶æ€
+                                Thread.currentThread().interrupt(); // é‡æ–°è®¾ç½®ä¸­æ–­æ ‡å¿—
+                                // å¯é€‰ï¼šè¿›è¡Œæ¸…ç†æˆ–é€€å‡ºæ“ä½œ
                             }
 
                             m_nChangedFilter = STATUS_PARSING;
@@ -1761,8 +1776,145 @@ public class LogFilterMain extends JFrame implements INotiEvent
         });
         m_thProcess.start();
         setProcessBtn(true);
+        startAutoSaveThread(); // å¯åŠ¨è‡ªåŠ¨ä¿å­˜çº¿ç¨‹
     }
 
+    /**
+     * å¯åŠ¨è‡ªåŠ¨ä¿å­˜çº¿ç¨‹
+     */
+    void startAutoSaveThread() {
+        m_bAutoSaveRunning = true;
+        m_thAutoSave = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    // åˆ›å»ºè‡ªåŠ¨ä¿å­˜ç›®å½•
+                    File autoSaveDir = new File(DEFAULT_AUTO_SAVE_FOLDER);
+                    if (!autoSaveDir.exists()) {
+                        autoSaveDir.mkdirs();
+                    }
+                    
+                    int previousLogCount = 0;
+                    
+                    while (m_bAutoSaveRunning) {
+                        Thread.sleep(5000); // æ¯5ç§’æ£€æŸ¥ä¸€æ¬¡
+                        
+                        int currentLogCount = m_arLogInfoAll.size();
+                        
+                        // å¦‚æžœæ—¥å¿—æ•°é‡è¶…è¿‡é˜ˆå€¼ï¼Œåˆ™æ‰§è¡Œè‡ªåŠ¨ä¿å­˜å’Œæ¸…ç†
+                        if (currentLogCount >= m_nLogThreshold && 
+                            currentLogCount > previousLogCount) {
+                            
+                            // ç”Ÿæˆè‡ªåŠ¨ä¿å­˜æ–‡ä»¶å
+                            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                            String autoSaveFileName = DEFAULT_AUTO_SAVE_FOLDER + File.separator + 
+                                                      "auto_saved_log_" + timeStamp + ".txt";
+                            
+                            // ä¿å­˜å½“å‰æ—¥å¿—åˆ°æ–‡ä»¶
+                            saveLogsToFile(autoSaveFileName);
+                            
+                            // æ¸…ç†çŽ°æœ‰æ—¥å¿—æ•°æ®
+                            clearData();
+                            
+                            // é‡æ–°å¼€å§‹æ—¥å¿—æŠ“å–
+                            startFileParse();
+                            
+                            previousLogCount = 0;
+                            
+                            // æ›´æ–°çŠ¶æ€æ 
+                            setStatus("Auto-saved logs to " + autoSaveFileName + " and restarted logging");
+                        }
+                        
+                        previousLogCount = currentLogCount;
+                    }
+                } catch (Exception e) {
+                    T.e("Auto save thread error: " + e);
+                    e.printStackTrace();
+                }
+            }
+        });
+        m_thAutoSave.start();
+    }
+    
+    /**
+     * å°†å½“å‰æ—¥å¿—ä¿å­˜åˆ°æŒ‡å®šæ–‡ä»¶
+     * @param fileName ä¿å­˜çš„æ–‡ä»¶å
+     */
+    void saveLogsToFile(String fileName) {
+        try {
+            Writer fileOut = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(fileName), "UTF-8"));
+            
+            synchronized(FILE_LOCK) {
+                for (LogInfo logInfo : m_arLogInfoAll) {
+                    // é‡æ–°æž„é€ åŽŸå§‹æ—¥å¿—è¡Œ
+                    String logLine = reconstructLogLine(logInfo);
+                    fileOut.write(logLine);
+                    fileOut.write("\r\n");
+                }
+            }
+            
+            fileOut.close();
+        } catch (Exception e) {
+            T.e("Error saving logs to file: " + e);
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * æ ¹æ® LogInfo é‡æž„åŽŸå§‹æ—¥å¿—è¡Œ
+     * @param logInfo æ—¥å¿—ä¿¡æ¯
+     * @return é‡æž„çš„æ—¥å¿—è¡Œ
+     */
+    String reconstructLogLine(LogInfo logInfo) {
+        // æ ¹æ®ä¸åŒç±»åž‹çš„æ—¥å¿—æ ¼å¼é‡æž„åŽŸå§‹è¡Œ
+        if (logInfo.m_strDate != null && logInfo.m_strTime != null && 
+            logInfo.m_strLogLV != null && logInfo.m_strTag != null && 
+            logInfo.m_strPid != null && logInfo.m_strMessage != null) {
+            
+            // æ ‡å‡†æ—¥å¿—æ ¼å¼: 04-17 09:01:18.910 D/LightsService(  139): BKL : 106
+            return logInfo.m_strDate + " " + logInfo.m_strTime + " " + 
+                   logInfo.m_strLogLV + "/" + logInfo.m_strTag + "(" + 
+                   logInfo.m_strPid + "): " + logInfo.m_strMessage;
+        } else if (logInfo.m_strDate != null && logInfo.m_strTime != null &&
+                   logInfo.m_strPid != null && logInfo.m_strThread != null &&
+                   logInfo.m_strLogLV != null && logInfo.m_strTag != null && 
+                   logInfo.m_strMessage != null) {
+            
+            // ThreadTimeæ ¼å¼: 04-20 12:06:02.125   146   179 D BatteryService: update start
+            return logInfo.m_strDate + " " + logInfo.m_strTime + " " + 
+                   logInfo.m_strPid + " " + logInfo.m_strThread + " " + 
+                   logInfo.m_strLogLV + " " + logInfo.m_strTag + ": " + 
+                   logInfo.m_strMessage;
+        } else {
+            // å¦‚æžœæ— æ³•é‡æž„ï¼Œåˆ™è¿”å›žæ¶ˆæ¯éƒ¨åˆ†
+            return logInfo.m_strMessage != null ? logInfo.m_strMessage : "";
+        }
+    }
+    
+    /**
+     * åœæ­¢è‡ªåŠ¨ä¿å­˜çº¿ç¨‹
+     */
+    void stopAutoSaveThread() {
+        m_bAutoSaveRunning = false;
+        if (m_thAutoSave != null) {
+            try {
+                m_thAutoSave.join(1000); // ç­‰å¾…æœ€å¤š1ç§’
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+    
+    /**
+     * è®¾ç½®æ—¥å¿—é˜ˆå€¼
+     * @param threshold æ–°çš„æ—¥å¿—é˜ˆå€¼
+     */
+    void setLogThreshold(int threshold) {
+        if (threshold > 0) {
+            m_nLogThreshold = threshold;
+        }
+    }
+    
     boolean checkLogLVFilter(LogInfo logInfo)
     {
         if(m_nFilterLogLV == LogInfo.LOG_LV_ALL)

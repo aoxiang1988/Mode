@@ -14,3 +14,4 @@ public class WorkClassPoxy implements BaseFunctionInterface {
         mWorkClass.doSomeThing();
     }
 }
+
