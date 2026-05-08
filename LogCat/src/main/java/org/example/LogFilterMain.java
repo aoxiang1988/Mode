@@ -1474,22 +1474,14 @@ public class LogFilterMain extends JFrame implements INotiEvent
 
     void stopProcess()
     {
-        try
-        {
-            m_bPauseADB = true;
-            stopAutoSaveThread(); // 停止自动保存线程
-            
-            if(m_Process != null)
-            {
-                m_Process.destroy();
-                m_Process = null;
-            }
-            setProcessBtn(false);
-        }
-        catch(Exception e)
-        {
-            T.e("stopProcess e = " + e);
-        }
+        setProcessBtn(false);
+        if(m_Process != null) m_Process.destroy();
+        if(m_thProcess != null) m_thProcess.interrupt();
+        if(m_thWatchFile != null) m_thWatchFile.interrupt();
+        m_Process = null;
+        m_thProcess = null;
+        m_thWatchFile = null;
+        m_bPauseADB = false;
     }
 
     void startFileParse()
@@ -1776,7 +1768,34 @@ public class LogFilterMain extends JFrame implements INotiEvent
         });
         m_thProcess.start();
         setProcessBtn(true);
-        startAutoSaveThread(); // 启动自动保存线程
+    }
+
+    void startAutoSaveThreadSecond() {
+        m_bAutoSaveRunning = true;
+        m_thAutoSave = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (m_bAutoSaveRunning) {
+                    try {
+                        Thread.sleep(1000*60*5); // 每5min检查一次
+                        pauseProcess();
+                        Thread.sleep(1000); // 每1秒检查一次
+                        boolean bBackup = m_bPauseADB;
+                        m_bPauseADB = true;
+                        clearData();
+                        updateTable(-1, false);
+                        m_bPauseADB = bBackup;
+                        Thread.sleep(1000); // 每1秒检查一次
+                        stopProcess();
+                        Thread.sleep(1000); // 每1秒检查一次
+                        startProcess();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+        m_thAutoSave.start();
     }
 
     /**
@@ -2057,10 +2076,12 @@ public class LogFilterMain extends JFrame implements INotiEvent
             else if(e.getSource().equals(m_btnRun))
             {
                 startProcess();
+                startAutoSaveThreadSecond();
             }
             else if(e.getSource().equals(m_btnStop))
             {
                 stopProcess();
+                stopAutoSaveThread();
             }
             else if(e.getSource().equals(m_btnClear))
             {

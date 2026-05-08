@@ -13,7 +13,6 @@ public class ClassTaster
         {
             Method      method;
 
-            //테스트 값을 받은경우
             if ( params.length > 0 )
             {
                 method = getMethod( cls, strMethod );
