@@ -504,6 +504,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
             p.setProperty(INI_WIDTH,       "" + m_nWinWidth);
             p.setProperty(INI_HEIGHT,      "" + m_nWinHeight);
             p.setProperty(INI_WINDOW_STATE,"" + m_nWindState);
+            p.setProperty(INI_CHECK_TIME,      "" + mCheckTime);
 
             for(int nIndex = 0; nIndex < LogFilterTableModel.COMUMN_MAX; nIndex++)
             {
