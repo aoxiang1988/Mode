@@ -210,6 +210,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
     int                       m_nLastWidth;
     int                       m_nLastHeight;
     int                       m_nWindState;
+    int                       mCheckTime = 5;
     static RecentFileMenu     m_recentMenu;
 //    String                    m_strLastDir;
 
@@ -349,6 +350,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
     final String INI_WIDTH          = "INI_WIDTH";
     final String INI_HEIGHT         = "INI_HEIGHT";
     final String INI_WINDOW_STATE   = "INI_WINDOW_STATE";
+    final String INI_CHECK_TIME     = "INI_CHECK_TIME";
 
     final String INI_COMUMN         = "INI_COMUMN_";
     
@@ -467,6 +469,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
             m_nWinWidth  = Integer.parseInt( p.getProperty( INI_WIDTH ));
             m_nWinHeight = Integer.parseInt( p.getProperty( INI_HEIGHT ));
             m_nWindState = Integer.parseInt( p.getProperty( INI_WINDOW_STATE ));
+            mCheckTime   = Integer.parseInt( p.getProperty( INI_CHECK_TIME ));
             
             for(int nIndex = 0; nIndex < LogFilterTableModel.COMUMN_MAX; nIndex++)
             {
@@ -1777,7 +1780,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
             public void run() {
                 while (m_bAutoSaveRunning) {
                     try {
-                        Thread.sleep(1000*60*5); // 每5min检查一次
+                        Thread.sleep(1000*60*mCheckTime); // 每5min检查一次
                         pauseProcess();
                         Thread.sleep(1000); // 每1秒检查一次
                         boolean bBackup = m_bPauseADB;
